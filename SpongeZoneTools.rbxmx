@@ -1,7 +1,7 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBX430707A6AEED46EEB37DA88F2613E89E">
+	<Item class="Folder" referent="RBX711DB23F021C4C8485C1CFE2B6A62890">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
 			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -10,7 +10,7 @@
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBX1D6C7130BDFD46BAA48F6D3412856C5D">
+		<Item class="Script" referent="RBX39A6F5D0A2DD4681B389096C48E935E6">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -29,6 +29,7 @@ local allTools = {
 	AttributeImporter = script.Parent.AttributeImporter.Main,
 	ToggleGroupVis = script.Parent.ToggleGroupVis.Main,
 	OneClickTools = script.Parent.OneClickTools.Main,
+	PartBisect = script.Parent.PartBisect.Main
 }
 
 local settingsModule = script.Parent.Settings.Main
@@ -111,7 +112,7 @@ settings().Studio.ThemeChanged:Connect(RethemeTopLevelButtons)]]></ProtectedStri
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC82CF35E62614BECAF722C81CBFF813E">
+		<Item class="ModuleScript" referent="RBX72F8623D1B4441FFA2C072550C472531">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -208,7 +209,7 @@ return PropArrayUI
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC58EC60F3C2C4B96B786535F3A3D2DDB">
+		<Item class="ModuleScript" referent="RBX82AAD385F2F04D06B10ADE39BAE1CAC2">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -260,6 +261,10 @@ end
 function ToolsCommon:SetPluginSetting(settingKey, value)
 	pluginSingleton:SetSetting(`SZT_IE_{settingKey}`, value)
 	return self:GetPluginSetting(settingKey) == value
+end
+
+function ToolsCommon:GetGridSize()
+	return pluginSingleton:GetGridSize()
 end
 
 function ToolsCommon:RecordChanges(name: string)
@@ -329,6 +334,14 @@ function ToolsCommon:TableSlice(tblSrc: {any}, sliceStart: number, sliceEnd: num
 	return tblTo
 end
 
+function ToolsCommon:Union(tbl: {Instance}) : UnionOperation
+	return pluginSingleton:Union(tbl)
+end
+
+function ToolsCommon:Intersect(tbl: {Instance}) : UnionOperation
+	return pluginSingleton:Intersect(tbl)
+end
+
 settings().Studio.ThemeChanged:Connect(RethemePluginElements)
 
 return ToolsCommon]]></ProtectedString>
@@ -336,7 +349,7 @@ return ToolsCommon]]></ProtectedString>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXB835EA321FCB463387D26A2C0B1C1928">
+		<Item class="ModuleScript" referent="RBX734108025D564410884E762F72C9F39C">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -367,12 +380,59 @@ function PluginSingleton:SetSetting(settingKey, value)
 	_plugin:SetSetting(settingKey, value)
 end
 
+function PluginSingleton:GetGridSize()
+	return _plugin.GridSize
+end
+
+function PluginSingleton:Union(tbl)
+	return _plugin:Union(tbl)
+end
+
+function PluginSingleton:Intersect(tbl)
+	return _plugin:Intersect(tbl)
+end
+
 return PluginSingleton]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX1AF76FBC62264859BAF463F49C6D8538">
+		<Item class="ModuleScript" referent="RBX7381A6382FF247E9883CFBFC6BEC32B4">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<string name="Name">SpongErrs</string>
+				<string name="ScriptGuid">{751A2AD5-B29B-464A-BB86-ED07FF8F5447}</string>
+				<ProtectedString name="Source"><![CDATA[local SpongErrs = {}
+
+SpongErrs.__tostring = function(self)
+	return self.errtbl.__errmsgs[self.msgidx]
+end
+
+function SpongErrs.ErrType(tbl)
+	local errtbl = {}
+	local errmsgs = {}
+	
+	local i = 1
+	for err, errmsg in pairs(tbl) do
+		errtbl[err] = setmetatable({ msgidx = i, errtbl = errtbl }, SpongErrs)
+		errmsgs[i] = errmsg
+		i = i + 1
+	end
+	
+	errtbl.__errmsgs = errmsgs
+	return errtbl
+end
+
+return SpongErrs
+]]></ProtectedString>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+		</Item>
+		<Item class="Folder" referent="RBX420601CE744947099CA5B4C7A7702E31">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -381,7 +441,7 @@ return PluginSingleton]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBXB5675C013D774C9D99E9A0E3C53D12A6">
+			<Item class="ModuleScript" referent="RBX22A1A7CA98864090AB8F70F04B050BD8">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -517,7 +577,7 @@ return {
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Folder" referent="RBX0992F62BA7304671B58F33386437EDB4">
+		<Item class="Folder" referent="RBX136D9FCFC68940C0909720AC733A43C0">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -526,7 +586,7 @@ return {
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX73D102CC5245471B88A952CC6984244B">
+			<Item class="ModuleScript" referent="RBX908D73B059DA4EB5B0A2B31433899085">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -578,7 +638,7 @@ return {
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Folder" referent="RBX7453597B5A2C4160BF75DD390F76D5C6">
+		<Item class="Folder" referent="RBX990315F820A648EEB34E4E8E6402D543">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -587,7 +647,7 @@ return {
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX3B644BEBB90943E289D21397168031A7">
+			<Item class="ModuleScript" referent="RBX832A958C0C6A4D85AA2107A747A664E6">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -771,7 +831,7 @@ return {
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX5C17EC9BF2BD4CC0990A837024CA3E7A">
+			<Item class="ModuleScript" referent="RBXE8B6FB8B5D0645399041B79A2D9D67C4">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -882,7 +942,7 @@ return {
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX83607D4B0BAE4DF096B27E52CCB42AB1">
+			<Item class="ModuleScript" referent="RBX4EC9CBB0BBF34FAAB87937EC4D8DA55B">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -985,7 +1045,7 @@ return InfilClassInfo]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX3668093FCAA14DC9B2A7E035DA194392">
+			<Item class="ModuleScript" referent="RBX86A76AF0224E457587291EA7A52F1884">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1069,7 +1129,7 @@ return classSearchInfo]]></ProtectedString>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBXB685823F2F874DB9BBD01D14E7DCD285">
+			<Item class="ModuleScript" referent="RBX6FB02FF21A5A450FB381DC563EF0002A">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1125,7 +1185,7 @@ return AttributeMan
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="Folder" referent="RBX85128213907F4E178B0F1B1283EE19DA">
+			<Item class="Folder" referent="RBX238A7A4F14DF4F65BFCBB5C5615B0290">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1134,7 +1194,7 @@ return AttributeMan
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
-				<Item class="ModuleScript" referent="RBX45DFE20549E54280A5FBCDA9775674A4">
+				<Item class="ModuleScript" referent="RBX12A8AA1910C2413AA112257F8DE2EF9C">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1173,7 +1233,7 @@ FadeOutCondition = { PropAttributeTypes.STRING, nil }}]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXB592EF315225464292E139A3F2EF9E1D">
+				<Item class="ModuleScript" referent="RBXA1B5D76BCD634030888E9907CA90A34F">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -1205,7 +1265,7 @@ return PropAttributeTypes]]></ProtectedString>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX7FCC47F8AF2146FFA4D4FA5FCBC02BAD">
+				<Item class="ModuleScript" referent="RBX8FD19ACED16B4C05BC39A774D08EA83E">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2494,7 +2554,7 @@ return {
 				</Item>
 			</Item>
 		</Item>
-		<Item class="Folder" referent="RBXB99115D944B644FD8475402709979718">
+		<Item class="Folder" referent="RBX57ECDC98DD8F4BECBB565F406030D6F3">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2503,7 +2563,7 @@ return {
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBXC872B88713E04B38A11068F2D6A79474">
+			<Item class="ModuleScript" referent="RBX9EC399F5089F41AA97606E7F621C692E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2522,7 +2582,9 @@ local oneClickMenuDisabled = not oneClickMenuEnabled
 local toolsList = {
 	CellFixup = script.Parent.CellFixup.Main,
 	CustomPropBaseGen = script.Parent.CustomPropBaseGen.Main,
+	GenCellArea = script.Parent.GenCellArea.Main,
 	GenSlopePart = script.Parent.GenSlopePart.Main,
+	PartsInCell = script.Parent.PartsInCell.Main,
 	ReorganizeContents = script.Parent.ReorganizeContents.Main
 }
 
@@ -2569,7 +2631,7 @@ return {
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="Folder" referent="RBX26ABDF3719204CDFA88F98C731172295">
+			<Item class="Folder" referent="RBXBABEAEE6EF7C4A21B6B60E4F0B38F9E1">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2578,7 +2640,7 @@ return {
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
-				<Item class="ModuleScript" referent="RBXF0AA1676267D42E2AD80FD204CBF5F1D">
+				<Item class="ModuleScript" referent="RBX1E03C8AB980A4492B31FCE4F01EECEF6">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2689,7 +2751,7 @@ return {
 					</Properties>
 				</Item>
 			</Item>
-			<Item class="Folder" referent="RBX8BAB2F0E42A74060A35B929429456EE8">
+			<Item class="Folder" referent="RBXEE4C5D65802947C58E1313C036B7B699">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2698,7 +2760,7 @@ return {
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
-				<Item class="ModuleScript" referent="RBXE2A26FF1E2A1408EBA7C3DE295BD9E37">
+				<Item class="ModuleScript" referent="RBX6EC547914B764AEBA97AF90AF2CD8504">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2754,7 +2816,7 @@ return {
 					</Properties>
 				</Item>
 			</Item>
-			<Item class="Folder" referent="RBX0C9D7926899444EFB55C7398195159E5">
+			<Item class="Folder" referent="RBX0D3BB6F4DE724B80B6071AAB70C4855E">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2763,7 +2825,7 @@ return {
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
-				<Item class="ModuleScript" referent="RBX4B5177663028473BA52F155602DAA385">
+				<Item class="ModuleScript" referent="RBX6AF1BBAE25514772A203B4947062F71E">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2827,7 +2889,7 @@ return {
 					</Properties>
 				</Item>
 			</Item>
-			<Item class="Folder" referent="RBXE0504E1F58DF40449CC54CC01E0543B1">
+			<Item class="Folder" referent="RBX9E18D4A80A9A48F793DD522369C837BF">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2836,7 +2898,7 @@ return {
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
-				<Item class="ModuleScript" referent="RBXBF5CEDCD331B4F0DBD1A82D6C15A214C">
+				<Item class="ModuleScript" referent="RBXB7941CD5CDFD40E5B55A8DE563271C3B">
 					<Properties>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2852,15 +2914,9 @@ end
 
 local function GenSlopePart(wedge: BasePart)
 	
-	local slopePart = Instance.new("Part")
+	local slopePart = wedge:Clone()
 	slopePart.Parent = wedge.Parent
-	slopePart.CFrame = wedge.CFrame
-	slopePart.Material = wedge.Material
-	slopePart.CanCollide = wedge.CanCollide
-	slopePart.CanQuery = wedge.CanQuery
-	slopePart.CanTouch = wedge.CanTouch
-	slopePart.CastShadow = wedge.CastShadow
-	slopePart.Color = wedge.Color
+	slopePart.Shape = Enum.PartType.Block
 	
 	-- For some forsaken reason, Instance.new("Part") generates a part with inlets/studs
 	slopePart.TopSurface = Enum.SurfaceType.Smooth
@@ -2898,8 +2954,253 @@ return {
 					</Properties>
 				</Item>
 			</Item>
+			<Item class="Folder" referent="RBX4D321439391B4259914E6DB53BC13179">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">GenCellArea</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBX8E2079D9D8B644AB8B3679461846F5D6">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Main</string>
+						<string name="ScriptGuid">{F6E5FCFE-C382-4117-BCDA-F16CEC142275}</string>
+						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
+
+local EXTENTS = 1000
+
+local function GenCellArea(cell: Model)
+	
+	local floors = {}
+	local ceilings = {}
+	
+	for _, p in pairs(cell:GetChildren()) do
+		if p.Name ~= "Floor" and p.Name ~= "Roof" then warn(`Skipping part {p.Name} in cell {p.Parent.Name}`) continue end
+		local p2 = p:Clone()
+		local isFloor = (p.Name == "Floor")
+		local pt = isFloor and floors or ceilings
+		local y = isFloor and 1 or -1
+		p2.Position += Vector3.yAxis*y*(EXTENTS/2)
+		p2.Size 	+= Vector3.yAxis*EXTENTS
+		p2.Color 	= Color3.new(255, 0, 0)
+		p2.Transparency = 0.5
+		p2.Material = Enum.Material.SmoothPlastic
+		pt[#pt+1] = p2 
+	end
+	
+	local cellArea = common:Intersect({common:Union(floors), common:Union(ceilings)})
+	cellArea.Name = `{cell.Name}Area`
+	
+	return cellArea
+	
+end
+
+local function GenCellAreas()
+	
+	local recording = common:RecordChanges("Generate Cell Area")
+	if not recording then return end
+	
+	if workspace:FindFirstChild("CellAreas") ~= nil then
+		workspace.CellAreas:Destroy()
+	end
+	
+	local outFolder = Instance.new("Folder")
+	outFolder.Name = "CellAreas"
+	outFolder.Parent = workspace
+	
+	for _, selected in ipairs(common:GetSelection()) do
+		if not selected:IsA("Model") then warn(`Can't generate cell area for Instance of type {selected.ClassName}!`) continue end
+		GenCellArea(selected).Parent = outFolder
+	end
+	
+	common:CommitChanges(recording)
+	
+end
+
+return {
+	ClickedCallback = GenCellAreas,
+	ID = "Generate Cell Areas",
+	Tooltip = "For each selected cell, generates a union representing the area contained within the cell.",
+	IconAssetID = "rbxassetid://73761969919675",
+	LightIconAssetID = "rbxassetid://80151075507740"
+}]]></ProtectedString>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Folder" referent="RBX68CC8BC490E74F7ABE7C6CD99C59CA0D">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">PartsInCell</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBXA895AEAFC80B4DDDB894B291D9C77649">
+					<Properties>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<Content name="LinkedSource"><null></null></Content>
+						<string name="Name">Main</string>
+						<string name="ScriptGuid">{1339B90D-E78A-417F-9C93-332ED3DF51C1}</string>
+						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
+
+local EXTENTS = 1000
+
+type InfilCell = {
+	Name: string,
+	Floors: {BasePart},
+	Roofs: {BasePart},
+	Model: Model,
+}
+
+local function DecomposeCell(cell: Model) : InfilCell
+	local cellModel = Instance.new("Model")
+	
+	local floors = {}
+	local roofs = {}
+	
+	local isFloor = false
+	for _, p in pairs(cell:GetChildren()) do
+		if p.Name == "Floor" then
+			isFloor = true
+		elseif p.Name == "Roof" then
+			isFloor = false
+		else
+			warn(`Ignoring Part {p.Name} in cell {cell.Name}...`)
+			continue
+		end
+		
+		local p2 = p:Clone()
+		
+		local t = if isFloor then floors else roofs
+		local y = if isFloor then 1 else -1
+		p2.Position += Vector3.yAxis*y*(EXTENTS/2)
+		p2.Size += p2.CFrame:VectorToObjectSpace(Vector3.yAxis*EXTENTS)
+		p2.Parent = cellModel
+		t[#t+1] = p2
+	end
+	
+	return {Name = cell.Name, Floors = floors, Roofs = roofs, Model = cellModel}
+end
+
+local function DecomposedSetParent(cell: InfilCell, parent: Instance)
+	cell.Model.Parent = parent
+end
+
+local function PointInCellPart(cellPart: BasePart, point: Vector3) : boolean
+	local pointLocal = cellPart.CFrame:PointToObjectSpace(point)
+	--local localDistance = point - cellPart.Size
+	local x = math.abs(pointLocal.X)
+	local y = math.abs(pointLocal.Y)
+	local z = math.abs(pointLocal.Z)
+	local halfArea = cellPart.Size / 2
+	return (x < halfArea.X and y < halfArea.Y and z < halfArea.Z)
+end
+
+local function PointInCell(cell: InfilCell, point: Vector3) : boolean
+	for _, floor in ipairs(cell.Floors) do
+		if not PointInCellPart(floor, point) then continue end
+		for _, roof in ipairs(cell.Roofs) do
+			if PointInCellPart(roof, point) then return true end
+		end
+	end
+	
+	return false
+end
+
+local function PartInCell(cell: InfilCell, part: BasePart) : boolean
+	if PointInCell(cell, part.Position) then
+		print(`Part {part.Name} in cell!`)
+		return true
+	end
+	
+	-- Check corner points
+	local halfSize = part.CFrame:VectorToWorldSpace(part.Size) / 2
+	for x=-1, 1, 1 do
+		for y = -1, 1, 1 do
+			for z = -1, 1, 1 do
+				local sVec = Vector3.new(x, y, z)
+				if PointInCell( cell, part.Position + (halfSize*sVec) ) then
+					print(`Part {part.Name} in cell!`)
+					return true
+				end
+			end
+		end
+	end
+	
+	return false
+end
+
+local function GetCellParts(missionGeo: Folder, cell: InfilCell) : {Instance}
+	local parts = {}
+	
+	for _, p in missionGeo:GetDescendants() do
+		if not (p:IsA("Part") or p:IsA("WedgePart") or p:IsA("CornerWedgePart")) then continue end
+		print(`Checking part {p.Name} is in cell...`)
+		if not PartInCell(cell, p) then continue end
+		parts[#parts + 1] = p
+	end
+	
+	print(`Part Count: {#parts}`)
+	
+	return parts
+end
+
+local function SelectCellParts()
+	
+	local debugMission = common:LevelFolder() 
+	if not debugMission then return end
+	
+	local geo = debugMission:FindFirstChild("Geometry")
+	if not geo then warn("No Geometry folder found in DebugMission!") return end
+	
+	local recording = common:RecordChanges("Select Cell Parts")
+	if not recording then return end
+	
+	local tmpFolder = Instance.new("Folder")
+	tmpFolder.Parent = workspace
+	tmpFolder.Name = "__temp"
+	
+	local selecting = {}
+	for _, selected in ipairs(common:GetSelection()) do
+		if not selected:IsA("Model") then warn(`Can't get cell parts for Instance of type {selected.ClassName}!`) continue end
+		local cell = DecomposeCell(selected)
+		DecomposedSetParent(cell, tmpFolder)
+		common:TableMerge(selecting, GetCellParts(geo, cell))
+	end
+	
+	tmpFolder:Destroy()
+	
+	game:GetService("Selection"):Set(selecting)
+	
+	common:CommitChanges(recording)
+	
+end
+
+return {
+	ClickedCallback = SelectCellParts,
+	ID = "Select Cell Parts",
+	Tooltip = "For each selected cell, selects all parts within that cell.",
+	IconAssetID = "rbxassetid://73761969919675",
+	LightIconAssetID = "rbxassetid://80151075507740"
+}]]></ProtectedString>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
 		</Item>
-		<Item class="Folder" referent="RBX747DC9C26D4448A79E9F82AC93BDBCE1">
+		<Item class="Folder" referent="RBXAF12D2C3E6A8438CB1457FF2031BFEBC">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2908,7 +3209,7 @@ return {
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBXAC21D02CB1454057A1EEAB0BDBAE3635">
+			<Item class="ModuleScript" referent="RBX1B36924F1E824BB0B704E99824C9B4AB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2982,7 +3283,7 @@ return {
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX233ABC265A9841FBBE98FABFB6909480">
+			<Item class="ModuleScript" referent="RBXE37CD477F31541619CDFD77BE94750FB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -2992,6 +3293,209 @@ return {
 					<string name="ScriptGuid">{4948C85F-7E17-4FC5-9058-4D864150BA5C}</string>
 					<ProtectedString name="Source"><![CDATA[return {
 	ONE_CLICK_ENABLED = "OneClickEnabled"
+}]]></ProtectedString>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+		</Item>
+		<Item class="Folder" referent="RBXB73E5A2189CE4D999CBEE67E8772B5C0">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">PartBisect</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+			<Item class="ModuleScript" referent="RBX5B919430312E4219917D3E414F0F500B">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<Content name="LinkedSource"><null></null></Content>
+					<string name="Name">Main</string>
+					<string name="ScriptGuid">{A8CB0C8A-55B0-487A-8996-6FAABB2BAF91}</string>
+					<ProtectedString name="Source"><![CDATA[local selection = game:GetService("Selection")
+local common = require(script.Parent.Parent.ToolsCommon)
+
+local BisectError = {
+	TryBisectSphere 	 = 0,
+	TryBisectCornerWedge = 1,
+	BadWedgeBisect 		 = 2,
+	BadCylinderBisect	 = 3,
+	BadGlobalBisect		 = 4,
+	BadSizeBisect		 = 5,
+	BisectTooSmall		 = 6,
+	InvalidInstance		 = 7,
+}
+
+local function TryBisect(part: Instance, axis: Enum.Axis, isGlobal: boolean, snap: number)
+	local isWeirdPart = part:IsA("WedgePart") or part:IsA("CornerWedgePart")
+	local isValidPart = part:IsA("Part") or isWeirdPart
+	if not isValidPart then warn(`Can't bisect part of type {part.ClassName}!`) return end
+	
+	part = part :: Part
+	
+	local pType: Enum.PartType
+	if isWeirdPart then
+		pType = part:IsA("WedgePart") and Enum.PartType.Wedge or Enum.PartType.CornerWedge
+	else
+		pType = part.Shape
+	end
+	
+	if pType == Enum.PartType.Ball then
+		warn("Can't bisect Sphere!")
+		return
+	elseif pType == Enum.PartType.CornerWedge then
+		warn("Can't bisect CornerWedge!")
+		return
+	end
+	
+	local sizeAxis: Vector3
+	local posAxis: Vector3
+	local size = part.Size
+	local bisectPos = part.Position
+	
+	if not isGlobal then
+		sizeAxis = Vector3.FromAxis(axis)
+		posAxis = part.CFrame:VectorToWorldSpace(Vector3.FromAxis(axis))
+	else
+		sizeAxis = part.CFrame:VectorToObjectSpace(Vector3.FromAxis(axis))
+		posAxis = Vector3.FromAxis(axis)
+	end
+	
+	sizeAxis = Vector3.new( math.abs(sizeAxis.X), math.abs(sizeAxis.Y), math.abs(sizeAxis.Z) )
+	--posAxis  = Vector3.new( math.abs(posAxis.X),  math.abs(posAxis.Y),  math.abs(posAxis.Z)  )
+	
+	if pType == Enum.PartType.Cylinder or pType == Enum.PartType.Wedge then
+		if sizeAxis.X ~= 1 then 
+			warn(`Parts of type {pType == Enum.PartType.Cylinder and "Cylinder" or "Wedge"} may only be bisected on their local X axis!`) 
+			return 
+		end
+	end
+	
+	if isGlobal then 
+		local orient = Vector3.new(part.CFrame:ToOrientation())
+		orient = orient * (360/(math.pi*2))
+		orient = orient * (Vector3.one-posAxis)
+		
+		local totalOrient = orient.X + orient.Y + orient.Z
+		if not (((totalOrient % 90) > 89.999) or ((totalOrient % 90) < 0.001)) then
+			print(totalOrient)
+			print(totalOrient % 90)
+			print(orient)
+			warn("Can't globally bisect part not perpendicular to bisect axis!")
+			return
+		end
+	end
+	
+	local bisectAxisSize = (size * sizeAxis).Magnitude
+	local bisectAxisSnaps = bisectAxisSize / snap
+	
+	if bisectAxisSnaps < 2 then warn(`Cannot bisect part of size {bisectAxisSize}! No valid grid size!`) return end
+	if math.round(bisectAxisSnaps) ~= bisectAxisSnaps then warn(`Cannot bisect part of size {bisectAxisSize}! Does not conform to grid!`) return end
+	
+	local sizeFac = math.ceil(bisectAxisSnaps / 2) / bisectAxisSnaps
+	local unbisectSize = size * (Vector3.one-sizeAxis)
+	local bisectSize = size * sizeAxis
+	
+	print(`SizeAxis: {sizeAxis}, PosAxis: {posAxis} BisectAxisSize: {bisectAxisSize}, BisectAxisSnaps: {bisectAxisSnaps}, SizeFac: {sizeFac}, UBSize: {unbisectSize}, BSize: {bisectSize}`)
+	
+	local p1BisectSize = (bisectAxisSize * sizeFac)
+	local p2BisectSize = (bisectAxisSize * (1-sizeFac))
+	
+	local p1Size = unbisectSize + (sizeAxis * p1BisectSize)
+	local p2Size = unbisectSize + (sizeAxis * p2BisectSize)
+	
+	local complementPart = part:Clone()
+	complementPart.Parent = part.Parent
+	
+	part.Size = p1Size
+	complementPart.Size = p2Size
+	
+	part.Position 			= bisectPos + (posAxis * (p1BisectSize / 2))
+	complementPart.Position = bisectPos - (posAxis * (p2BisectSize / 2))
+	
+	return { part, complementPart }
+	
+end
+
+local function BisectGroup(axis: Enum.Axis, isGlobal: boolean)
+	local recording = common:RecordChanges("Part Bisect")
+	if recording == nil then return end
+	
+	local snap = common:GetGridSize()
+	local output = {}
+	
+	for _, instance in ipairs(selection:Get()) do
+		local outParts = TryBisect(instance, axis, isGlobal, snap)
+		if outParts == nil then output[#output+1] = instance continue end
+		
+		for _, outV in ipairs(outParts) do
+			output[#output+1] = outV
+		end
+	end
+	
+	selection:Set(output)
+	common:CommitChanges(recording)
+end
+
+local function CreateBisector(axis: Enum.Axis, isGlobal: boolean)
+	return function()
+		BisectGroup(axis, isGlobal)
+	end
+end
+
+local pluginMenu: PluginMenu? = nil
+
+local function BuildMenu()
+	--[[
+	local nonGlobalImport = common:CreatePluginAction(
+		"AttributeImportNonGlobal", 
+		"Import Non-Global Attributes",
+		"Import all attributes specific to this Prop/StateComponent",
+		"rbxassetid://73551897964793",
+		"rbxassetid://132743443219803"
+	)
+	nonGlobalImport.Triggered:Connect(NonGlobalImport)
+	]]
+	local bisectLocalX = common:CreatePluginAction("BisectLocalX", "Local X", "", nil, nil)
+	local bisectLocalY = common:CreatePluginAction("BisectLocalY", "Local Y", "", nil, nil)
+	local bisectLocalZ = common:CreatePluginAction("BisectLocalZ", "Local Z", "", nil, nil)
+
+	bisectLocalX.Triggered:Connect(CreateBisector(Enum.Axis.X, false))
+	bisectLocalY.Triggered:Connect(CreateBisector(Enum.Axis.Y, false))
+	bisectLocalZ.Triggered:Connect(CreateBisector(Enum.Axis.Z, false))
+
+	local bisectGlobalX = common:CreatePluginAction("BisectGlobalX", "Global X", "", nil, nil)
+	local bisectGlobalY = common:CreatePluginAction("BisectGlobalY", "Global Y", "", nil, nil)
+	local bisectGlobalZ = common:CreatePluginAction("BisectGlobalZ", "Global Z", "", nil, nil)
+
+	bisectGlobalX.Triggered:Connect(CreateBisector(Enum.Axis.X, true))
+	bisectGlobalY.Triggered:Connect(CreateBisector(Enum.Axis.Y, true))
+	bisectGlobalZ.Triggered:Connect(CreateBisector(Enum.Axis.Z, true))
+
+	pluginMenu = common:CreatePluginMenu("PartBisector", "Part Bisector", "rbxassetid://88889481728921", "rbxassetid://81720630505836")
+	pluginMenu:AddAction(bisectLocalX)
+	pluginMenu:AddAction(bisectLocalY)
+	pluginMenu:AddAction(bisectLocalZ)
+	pluginMenu:AddAction(bisectGlobalX)
+	pluginMenu:AddAction(bisectGlobalY)
+	pluginMenu:AddAction(bisectGlobalZ)
+end
+
+local function OpenWindow()
+	pluginMenu:ShowAsync()
+end
+
+return {
+	ID = "Part Bisector",
+	Tooltip = "Automatically split selected parts along a given local/global axis\nConforms to current grid size",
+	IconAssetID = "rbxassetid://88889481728921",
+	LightIconAssetID = "rbxassetid://81720630505836",
+	ClickedCallback = OpenWindow,
+	BuildMenu = BuildMenu
 }]]></ProtectedString>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
