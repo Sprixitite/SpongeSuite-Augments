@@ -1,7 +1,7 @@
 <roblox xmlns:xmime="http://www.w3.org/2005/05/xmlmime" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.roblox.com/roblox.xsd" version="4">
 	<External>null</External>
 	<External>nil</External>
-	<Item class="Folder" referent="RBX430707A6AEED46EEB37DA88F2613E89E">
+	<Item class="Folder" referent="RBXE4B093585C3446779125DDB1EA20E145">
 		<Properties>
 			<BinaryString name="AttributesSerialize"></BinaryString>
 			<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -10,16 +10,8 @@
 			<int64 name="SourceAssetId">-1</int64>
 			<BinaryString name="Tags"></BinaryString>
 		</Properties>
-		<Item class="Script" referent="RBX1D6C7130BDFD46BAA48F6D3412856C5D">
+		<Item class="Script" referent="RBX06F1FB0E1407436D8FE8561996F67A90">
 			<Properties>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-				<bool name="DefinesCapabilities">false</bool>
-				<bool name="Disabled">false</bool>
-				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">Main</string>
-				<token name="RunContext">0</token>
-				<string name="ScriptGuid">{BA25A1CB-E014-4DF4-B49E-AEDDD88D8479}</string>
 				<ProtectedString name="Source"><![CDATA[local pluginSingleton = require(script.Parent.PluginSingleton)
 pluginSingleton:_Initialize(plugin)
 
@@ -107,115 +99,21 @@ BuildPluginToolbar(true)
 WarnIfUnknownTheme()
 
 settings().Studio.ThemeChanged:Connect(RethemeTopLevelButtons)]]></ProtectedString>
+				<bool name="Disabled">false</bool>
+				<Content name="LinkedSource"><null></null></Content>
+				<token name="RunContext">0</token>
+				<string name="ScriptGuid">{BA25A1CB-E014-4DF4-B49E-AEDDD88D8479}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Main</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXC82CF35E62614BECAF722C81CBFF813E">
+		<Item class="ModuleScript" referent="RBX80AB061272C945198EB427376CA9EF35">
 			<Properties>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-				<bool name="DefinesCapabilities">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">UI</string>
-				<string name="ScriptGuid">{E91F60D1-D0F8-4574-A4B5-D8BC735E9A8E}</string>
-				<ProtectedString name="Source"><![CDATA[local PropArrayUI = {}
-
-PropArrayUI.PADDING4 = UDim.new(0, 4)
-PropArrayUI.PADDING8 = UDim.new(0, 8)
-
-PropArrayUI.ROUNDED4 = Instance.new("UICorner")
-PropArrayUI.ROUNDED4.CornerRadius = PropArrayUI.PADDING4
-
-PropArrayUI.VERTICAL_UILIST = Instance.new("UIListLayout")
-PropArrayUI.VERTICAL_UILIST.FillDirection = Enum.FillDirection.Vertical
-PropArrayUI.VERTICAL_UILIST.Padding = PropArrayUI.PADDING8
-PropArrayUI.VERTICAL_UILIST.SortOrder = Enum.SortOrder.LayoutOrder
-
-PropArrayUI.HORIZONTAL_UILIST = PropArrayUI.VERTICAL_UILIST:Clone()
-PropArrayUI.HORIZONTAL_UILIST.FillDirection = Enum.FillDirection.Horizontal
-
-PropArrayUI.VECTOR_COMPONENT_UILAYOUT = Instance.new("UIListLayout")
-PropArrayUI.VECTOR_COMPONENT_UILAYOUT.SortOrder = Enum.SortOrder.Name
-PropArrayUI.VECTOR_COMPONENT_UILAYOUT.HorizontalFlex = Enum.UIFlexAlignment.SpaceAround
-PropArrayUI.VECTOR_COMPONENT_UILAYOUT.VerticalAlignment = Enum.VerticalAlignment.Center
-PropArrayUI.VECTOR_COMPONENT_UILAYOUT.Padding = PropArrayUI.PADDING8
-
-function PropArrayUI.NewFrame(padded: boolean?, ...: Instance)
-	padded = padded or false
-	
-	local newFrame = Instance.new("Frame")
-	newFrame.BackgroundTransparency = 0.5
-	newFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	
-	if padded then
-		local framePadding = Instance.new("UIPadding")
-		local paddingUdim = UDim.new(0, 8)
-		framePadding.PaddingTop = paddingUdim
-		framePadding.PaddingLeft = paddingUdim
-		framePadding.PaddingRight = paddingUdim
-		framePadding.PaddingBottom = paddingUdim
-		framePadding.Parent = newFrame
-	end
-	
-	for _, item in pairs({...}) do
-		item.Parent = newFrame
-	end
-	
-	return newFrame
-end
-
-function PropArrayUI.NewAttrLabel(text: string, colour: Color3)
-	local newLabel = PropArrayUI.NewLabel(text)
-	newLabel.BackgroundColor3 = colour
-	local _, _, v = colour:ToHSV()
-	newLabel.TextColor3 = v>0.5 and Color3.fromRGB(0,0,0) or Color3.fromRGB(255,255,255)
-	PropArrayUI.ROUNDED8:Clone().Parent = newLabel
-	return newLabel
-end
-
-function PropArrayUI.NewLabel(text: string)
-	local newLabel = Instance.new("TextLabel")
-	newLabel.Font = Enum.Font.SciFi
-	newLabel.TextScaled = true
-	newLabel.Text = text
-	return newLabel
-end
-
-function PropArrayUI.NewTextBox(placeholderText: string)
-	local newTextbox = Instance.new("TextBox")
-	newTextbox.Font = Enum.Font.SciFi
-	newTextbox.TextScaled = true
-	newTextbox.PlaceholderText = placeholderText
-	return newTextbox
-end
-
-local function NewVectorComponent(label)
-	local label = PropArrayUI.NewAttrLabel(label, Color3.new(255,255,255))
-	label.SizeConstraint = Enum.SizeConstraint.RelativeYY
-	label.Name = "0Label"
-	
-	local container = PropArrayUI.NewFrame(false, PropArrayUI.VECTOR_COMPONENT_UILAYOUT:Clone(), label, )
-end
-
-function PropArrayUI.NewVectorInput()
-	
-end
-
-return PropArrayUI
-]]></ProtectedString>
-				<int64 name="SourceAssetId">-1</int64>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-		</Item>
-		<Item class="ModuleScript" referent="RBXC58EC60F3C2C4B96B786535F3A3D2DDB">
-			<Properties>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-				<bool name="DefinesCapabilities">false</bool>
-				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">ToolsCommon</string>
-				<string name="ScriptGuid">{2D5EAC34-8CC9-43F4-B456-D43738C01990}</string>
 				<ProtectedString name="Source"><![CDATA[local pluginSingleton = require(script.Parent.PluginSingleton)
 
 local ChangeHistoryService = game:GetService("ChangeHistoryService")
@@ -262,6 +160,10 @@ function ToolsCommon:SetPluginSetting(settingKey, value)
 	return self:GetPluginSetting(settingKey) == value
 end
 
+function ToolsCommon:GetGridSize()
+	return pluginSingleton:GetGridSize()
+end
+
 function ToolsCommon:RecordChanges(name: string)
 	local recording = ChangeHistoryService:TryBeginRecording(name)
 	if recording == nil then warn("Failed to initialize history recording, doing nothing") return end
@@ -288,6 +190,18 @@ function ToolsCommon:NullableDescendantOf(instanceDescendant: Instance, childPat
 	end
 	if comparing == nil then return false end
 	return comparing:IsAncestorOf(instanceDescendant)
+end
+
+function ToolsCommon:AncestryCheck(instanceDescendant, ancestryNames, descendantCheck, idx)
+	descendantCheck = if descendantCheck == nil then false else true
+	idx = idx or #ancestryNames
+	local parentName = ancestryNames[idx]
+	if parentName == nil then return true end
+	if instanceDescendant.Parent == nil then return false end
+	if instanceDescendant.Parent == workspace then return false end
+	if instanceDescendant.Parent.Name == parentName then return ToolsCommon:AncestryCheck(instanceDescendant.Parent, ancestryNames, descendantCheck, idx-1) end
+	if instanceDescendant.Parent.Name ~= parentName and descendantCheck then return ToolsCommon:AncestryCheck(instanceDescendant.Parent, ancestryNames, descendantCheck, idx) end
+	return false
 end
 
 function ToolsCommon:InstanceIsAny(instance: Instance, classNames: {string})
@@ -332,18 +246,18 @@ end
 settings().Studio.ThemeChanged:Connect(RethemePluginElements)
 
 return ToolsCommon]]></ProtectedString>
+				<string name="ScriptGuid">{2D5EAC34-8CC9-43F4-B456-D43738C01990}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">ToolsCommon</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="ModuleScript" referent="RBXB835EA321FCB463387D26A2C0B1C1928">
+		<Item class="ModuleScript" referent="RBX31B223ED82EA4727AEAEECE1FC2072F9">
 			<Properties>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-				<bool name="DefinesCapabilities">false</bool>
 				<Content name="LinkedSource"><null></null></Content>
-				<string name="Name">PluginSingleton</string>
-				<string name="ScriptGuid">{0B52CE3C-5989-42D0-AC59-A04E1E3A6836}</string>
 				<ProtectedString name="Source"><![CDATA[local PluginSingleton = {}
 
 local _plugin = nil
@@ -367,12 +281,25 @@ function PluginSingleton:SetSetting(settingKey, value)
 	_plugin:SetSetting(settingKey, value)
 end
 
+function PluginSingleton:GetGridSize()
+	return _plugin.GridSize
+end
+
+function PluginSingleton:Underlying()
+	return _plugin
+end
+
 return PluginSingleton]]></ProtectedString>
+				<string name="ScriptGuid">{0B52CE3C-5989-42D0-AC59-A04E1E3A6836}</string>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">PluginSingleton</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
 		</Item>
-		<Item class="Folder" referent="RBX1AF76FBC62264859BAF463F49C6D8538">
+		<Item class="Folder" referent="RBXB140981FA1B842E69C0DF32458F3FB3A">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -381,14 +308,9 @@ return PluginSingleton]]></ProtectedString>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBXB5675C013D774C9D99E9A0E3C53D12A6">
+			<Item class="ModuleScript" referent="RBXCC2BB1C47C1A41E4B8776BF725C2A484">
 				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">Main</string>
-					<string name="ScriptGuid">{7B825C44-7342-4A3D-9FBE-7FC60ED35674}</string>
 					<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.ToolsCommon)
 
 local GROUP_VIS_ATTR_NAME = "_SpongeGroupVisibility"
@@ -512,73 +434,515 @@ return {
 	IconAssetID = "rbxassetid://86288177650040",
 	LightIconAssetID = "rbxassetid://137463386400446"
 }]]></ProtectedString>
+					<string name="ScriptGuid">{7B825C44-7342-4A3D-9FBE-7FC60ED35674}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Main</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Folder" referent="RBX0992F62BA7304671B58F33386437EDB4">
+		<Item class="Folder" referent="RBX5919143A4702411F9D002668A286B71E">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 				<bool name="DefinesCapabilities">false</bool>
-				<string name="Name">PropArray</string>
+				<string name="Name">OneClickTools</string>
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX73D102CC5245471B88A952CC6984244B">
+			<Item class="ModuleScript" referent="RBX18272F2552884B1F9DDE2B402F83D389">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.ToolsCommon)
+local pluginSettingsKeys = require(script.Parent.Parent.Settings.SettingsKeys)
+
+local oneClickMenuEnabled = common:GetPluginSetting(pluginSettingsKeys.ONE_CLICK_ENABLED)
+if oneClickMenuEnabled == nil then oneClickMenuEnabled = true end
+
+local oneClickMenuDisabled = not oneClickMenuEnabled
+
+local toolsList = {
+	CellFixup = script.Parent.CellFixup.Main,
+	CustomPropBaseGen = script.Parent.CustomPropBaseGen.Main,
+	GenSlopePart = script.Parent.GenSlopePart.Main,
+	ReorganizeContents = script.Parent.ReorganizeContents.Main
+}
+
+local subActions = {}
+for k, tool in pairs(toolsList) do
+	subActions[k] = require(tool)
+end
+
+local oneClickMenu: PluginMenu? = nil
+
+local function BuildMenu()
+	oneClickMenu = common:CreatePluginMenu("OneClickTools", "One-Click Tools", "rbxassetid://125187645185104", "rbxassetid://80115599628137")
+	
+	for toolName, toolModule in pairs(toolsList) do
+		print(`\tInitializing {toolName}...`)
+		
+		local actionInfo = require(toolModule)
+		local toolAction = common:CreatePluginAction(`OCT_{actionInfo.ID}`, actionInfo.ID, actionInfo.Tooltip, actionInfo.IconAssetID, actionInfo.LightIconAssetID)
+		
+		toolAction.Triggered:Connect(actionInfo.ClickedCallback)
+		oneClickMenu:AddAction(toolAction)
+	end
+end
+
+local function OpenWindow()
+	oneClickMenu:ShowAsync()
+end
+
+if not oneClickMenuDisabled then subActions = nil end
+
+return {
+	SubActionsOnly = oneClickMenuDisabled,
+	SubActions = subActions,
+	
+	ID = "One-Click Tools",
+	Tooltip = "A collection of tools activated by a single click.\nExists to avoid cluttering your plugin bar :3",
+	IconAssetID = "rbxassetid://125187645185104",
+	LightIconAssetID = "rbxassetid://80115599628137",
+	
+	ClickedCallback = OpenWindow,
+	BuildMenu = BuildMenu
+}]]></ProtectedString>
+					<string name="ScriptGuid">{311C54E9-667F-47AD-8660-BEFB18238E0C}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Main</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="Folder" referent="RBX5491DE4201304C05BCF919ACFCDA08D3">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">Main</string>
-					<string name="ScriptGuid">{35934633-F930-4752-BA83-99A83B4FBED3}</string>
-					<ProtectedString name="Source"><![CDATA[local ChangeHistoryService = game:GetService("ChangeHistoryService")
+					<string name="Name">CellFixup</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBXCAD177EF30304D66A4343FDE6E9A2095">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
 
-local function NewStyledFrame()
-	local newFrame = Instance.new("Frame")
-	newFrame.BackgroundTransparency = 0.5
-	newFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
-	return newFrame
-end
-
-local function NewVectorInput()
-	local container = NewStyledFrame()
-	local componentControls = { x = true, y = true, z = true }
-	local i = 0
-	for k, _ in pairs(componentControls) do
-		componentControls[k] = script.Parent.UI.VectorComponentInput:Clone()
-		componentControls[k].Name = `{i}VectorComponentInput`
-		componentControls[k].Parent = container
-		componentControls[k]["0Label"].Text = string.upper(k)
-		i = i + 1
+-- Hash politely borrowed from the official Cell tools
+local function hashName(name)
+	if name == "Default" then
+		return Color3.new(0, 0, 0)
 	end
-	return { Container = container, Components = componentControls }
+
+	local h = 5^7
+	local n = 0
+	for i = 1, #name do
+		n = (n * 257 + string.byte(name, i, i)) % h 
+	end
+	local color = Color3.fromHSV((n % 1000) / 1000, 0.5, 0.5)
+	return color
 end
 
-local function ReadVectorInput(vi)
-	for k, componentInput in pairs(vi.Components) do
-		componentInput["1Input"]
+local function FixCell(cell, cellPart, cellCol)
+	cellPart.Color = cellCol
+	cellPart.CastShadow = false
+	cellPart.Material = Enum.Material.Plastic
+	cellPart.Transparency = 0.5
+	cellPart.TopSurface = Enum.SurfaceType.Studs
+	cellPart.BottomSurface = Enum.SurfaceType.Inlet
+
+	if cellPart.Shape ~= Enum.PartType.Block then warn(`Cell Part {cell.Name}.{cellPart.Name} is non-block shape {tostring(cellPart.Shape)}!`) end
+end
+
+local function LinkTexture(normal)
+	local tex = Instance.new("Texture")
+	tex.Texture = "rbxassetid://124542772943020"
+	tex.StudsPerTileU = 3
+	tex.StudsPerTileV = 1
+	tex.Face = normal
+	tex.Name = `Texture{normal.Name}`
+	return tex
+end
+
+local function FixLink(linkPart)
+	linkPart.Color = Color3.fromRGB(127, 63, 65)
+	linkPart.CastShadow = false
+	linkPart.Material = Enum.Material.Plastic
+	linkPart.Transparency = 0.5
+	linkPart.TopSurface = Enum.SurfaceType.Smooth
+	linkPart.BottomSurface = Enum.SurfaceType.Smooth
+
+	if linkPart:FindFirstChild("TextureFront") == nil then
+		local frontTex = LinkTexture(Enum.NormalId.Front)
+		frontTex.Parent = linkPart
+	end
+
+	if linkPart:FindFirstChild("TextureBack") == nil then
+		local backTex = LinkTexture(Enum.NormalId.Back)
+		backTex.Parent = linkPart
+	end
+
+	for k, v in next, linkPart:GetChildren() do
+		if typeof(v) ~= "Instance" then continue end
+		if v.Name == "TextureFront" then continue end
+		if v.Name == "TextureBack" then continue end
+		v:Destroy()
 	end
 end
 
-local function OpenMenu()
+local function CellFixup()
+	local missionFolder = common:LevelFolder()
+	if missionFolder == nil then warn("Failed to find Custom Mission folder!") return end
+	
+	if missionFolder:FindFirstChild("Cells") == nil then warn("Custom Mission folder does not contain Cells folder!") return end
+	
+	local recording = common:RecordChanges("Cell Fixup")
+	if not recording then return end
+	
+	for _, cell in next, missionFolder.Cells:GetChildren() do
+		local cellColour = hashName(cell.Name)
+		if cell.Name == "Links" then
+			for _, linkPart in next, cell:GetChildren() do
+				if not linkPart:IsA("BasePart") then continue end
+				FixLink(linkPart)
+			end
+		else
+			for _, cellPart in next, cell:GetChildren() do
+				if not cellPart:IsA("BasePart") then continue end
+				FixCell(cell, cellPart, cellColour)
+			end
+		end
+	end
+	
+	common:CommitChanges(recording)
+end
+
+return {
+	ClickedCallback = CellFixup,
+	ID = "Cell Fixup",
+	Tooltip = "Fix cell styling",
+	IconAssetID = "rbxassetid://115706109343056",
+	LightIconAssetID = "rbxassetid://95343720267369"
+}]]></ProtectedString>
+						<string name="ScriptGuid">{F691E76A-0216-4C85-BF84-519152CBD9F2}</string>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Main</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Folder" referent="RBXB51C3324470340FB9B9FBAD23F048D05">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">CustomPropBaseGen</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBXE0D0804A60A24028AF2252D88FD436F3">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
+
+local function BaseGen()
+	
+	local recording = common:RecordChanges("Generate Prop Base")
+	if not recording then return end
+	
+	for _, v in pairs(common:GetSelection()) do
+		if not v:IsA("Model") then warn(`Selection {v.Parent.Name}.{v.Name} is not a Model! Skipping`) continue end
+		
+		local basePart = common:FindFirstChildWithNameAndClass(v, "Base", "BasePart") 
+		
+		if basePart ~= nil then
+			-- Ignore existing Base when getting bounds
+			basePart.Parent = nil
+		end
+		
+		local transform, size = v:GetBoundingBox()
+		
+		basePart = basePart or Instance.new("Part")
+		basePart.Parent = v
+		basePart.Transparency = 1
+		basePart.CFrame = transform
+		basePart.Size = size
+		basePart.Name = "Base"
+		basePart.Anchored = true
+		
+		basePart.TopSurface = Enum.SurfaceType.Smooth
+		basePart.BottomSurface = Enum.SurfaceType.Smooth
+		
+	end
+	
+	common:CommitChanges(recording)
 	
 end
 
 return {
-	ClickedCallback = OpenMenu,
-	ID = "Prop Array",
-	Tooltip = "Repeat a prop N times along a vector",
-	IconAssetID = "rbxassetid://106247740984287"
+	ClickedCallback = BaseGen,
+	ID = "Generate Prop Base",
+	Tooltip = "Generate the 'Base' part for the selected custom prop",
+	IconAssetID = "rbxassetid://73246176602542",
+	LightIconAssetID = "rbxassetid://101352653431755"
 }]]></ProtectedString>
+						<string name="ScriptGuid">{CAAC927D-AFB9-44EF-A1CF-2D4715B27B47}</string>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Main</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Folder" referent="RBX8CECD6C871B94F5E8DFCB83B66A82CEB">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">ReorganizeContents</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBX88DEB3B9292349C68FA8625C758F6C56">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
+
+local function FakeChild(fakeParent, name)
+	local fake = fakeParent:FindFirstChild(name)
+	if fake ~= nil then return fake end
+	
+	fake = Instance.new("Folder")
+	fake.Parent = fakeParent
+	fake.Name = name
+	return fake
+end
+
+local function ReorganizeContents()
+	
+	local recording = common:RecordChanges("Generate Prop Base #1")
+	if not recording then return end
+	
+	local fakeParent = Instance.new("Part")
+	fakeParent.Parent = workspace
+	
+	for _, parent in ipairs(common:GetSelection()) do
+		local vChildren = parent:GetChildren()
+		table.sort(vChildren, function(c1, c2) return c1.Name:lower() < c2.Name:lower() end)
+		
+		for _, child in ipairs(vChildren) do
+			print(child.Name)
+			child.Parent = FakeChild(fakeParent, child.Name)
+		end
+		
+		for _, nameFolder in ipairs(fakeParent:GetChildren()) do
+			for _, child in ipairs(nameFolder:GetChildren()) do
+				local newChild = child:Clone()
+				newChild.Parent = parent
+			end
+		end
+		
+	end
+	
+	fakeParent:Destroy()
+	
+	common:CommitChanges(recording)
+	
+end
+
+return {
+	ClickedCallback = ReorganizeContents,
+	ID = "Child Organizer",
+	Tooltip = "For each selected instance, reorganizes it's children to be listed in alphabetical order",
+	IconAssetID = "rbxassetid://73267947291883",
+	LightIconAssetID = "rbxassetid://96120579208421"
+}]]></ProtectedString>
+						<string name="ScriptGuid">{E18944E5-E01A-4129-9F65-BB85E1F4FC50}</string>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Main</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+			<Item class="Folder" referent="RBX5FB1DF5DAA794757AE5A19F3DF20A423">
+				<Properties>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">GenSlopePart</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBXBAD97FCD5ECB48229680AC30976A07C1">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
+
+local function InstanceIsWedge(instance: Instance)
+	return instance:IsA("WedgePart") or instance:IsA("Part") and instance.Shape == Enum.PartType.Wedge
+end
+
+local function GenSlopePart(wedge: BasePart)
+	
+	local slopePart = wedge:Clone()
+	slopePart.Parent = wedge.Parent
+	slopePart.Shape = Enum.PartType.Block
+	
+	-- For some forsaken reason, Instance.new("Part") generates a part with inlets/studs
+	slopePart.TopSurface = Enum.SurfaceType.Smooth
+	slopePart.BottomSurface = Enum.SurfaceType.Smooth
+	
+	slopePart.Size = Vector3.new( wedge.Size.X, 0.5, math.sqrt(wedge.Size.Y^2 + wedge.Size.Z^2) )
+	
+	slopePart.CFrame = slopePart.CFrame * CFrame.Angles(math.atan2(wedge.Size.Y, wedge.Size.Z), 0, 0):Inverse()
+	
+end
+
+local function GenSlopeParts()
+	
+	local recording = common:RecordChanges("Generate Slope Part(s)")
+	if not recording then return end
+	
+	for _, selected in ipairs(common:GetSelection()) do
+		if not InstanceIsWedge(selected) then warn(`Selection {selected.Name} isn't a Wedge! Skipping`) continue end
+		GenSlopePart(selected)
+	end
+	
+	common:CommitChanges(recording)
+	
+end
+
+return {
+	ClickedCallback = GenSlopeParts,
+	ID = "Generate Slope Part",
+	Tooltip = "For each selected wedge, generates a part at the center of it's slope facing the normal vector of the slope.",
+	IconAssetID = "rbxassetid://73761969919675",
+	LightIconAssetID = "rbxassetid://80151075507740"
+}]]></ProtectedString>
+						<string name="ScriptGuid">{EF142B23-FAE6-4E74-AA7B-0F241E14C468}</string>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">Main</string>
+						<int64 name="SourceAssetId">-1</int64>
+						<BinaryString name="Tags"></BinaryString>
+					</Properties>
+				</Item>
+			</Item>
+		</Item>
+		<Item class="Folder" referent="RBX2BF87D0A6A9F4A26A1CCB0360499E5C0">
+			<Properties>
+				<BinaryString name="AttributesSerialize"></BinaryString>
+				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+				<bool name="DefinesCapabilities">false</bool>
+				<string name="Name">Settings</string>
+				<int64 name="SourceAssetId">-1</int64>
+				<BinaryString name="Tags"></BinaryString>
+			</Properties>
+			<Item class="ModuleScript" referent="RBXEA6259AC7EBF4F7598E6698C8DA1C3B2">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.ToolsCommon)
+
+local settingsKeys = require(script.Parent.SettingsKeys)
+
+local settingsMenu: PluginMenu = nil
+local oneClickEnableAction: PluginAction = nil
+local oneClickDisableAction: PluginAction = nil
+
+local function UpdateMenu()
+	settingsMenu:Clear()
+	if common:GetPluginSetting(settingsKeys.ONE_CLICK_ENABLED) ~= false then
+		settingsMenu:AddAction(oneClickDisableAction)
+	else
+		settingsMenu:AddAction(oneClickEnableAction)
+	end
+end
+
+local function ToggleOneClickEnabled()
+	local currentState = common:GetPluginSetting(settingsKeys.ONE_CLICK_ENABLED)
+	if currentState == nil then currentState = true end
+	common:SetPluginSetting( settingsKeys.ONE_CLICK_ENABLED, not currentState )
+	UpdateMenu()
+	warn("Restart to apply setting (trust me I tried getting this to work without a restart)")
+end
+
+local function BuildMenu()
+	oneClickEnableAction = common:CreatePluginAction(
+		"OneClickEnable",
+		"Enable One-Click Menu",
+		"Toggles usage of the one-click menu for saving toolbar space.",
+		"rbxassetid://125187645185104",
+		"rbxassetid://80115599628137",
+		false
+	)
+	oneClickEnableAction.Triggered:Connect(ToggleOneClickEnabled)
+	
+	oneClickDisableAction = common:CreatePluginAction(
+		"OneClickDisable",
+		"Disable One-Click Menu",
+		"Toggles usage of the one-click menu for saving toolbar space.",
+		"rbxassetid://125187645185104",
+		"rbxassetid://80115599628137",
+		false
+	)
+	oneClickDisableAction.Triggered:Connect(ToggleOneClickEnabled)
+	
+	settingsMenu = common:CreatePluginMenu("Settings", "Settings", "rbxassetid://87024861341187", "rbxassetid://127048252171392")
+	UpdateMenu()
+end
+
+local function OpenWindow()
+	settingsMenu:ShowAsync()
+end
+
+return {
+	ID = "Settings",
+	Tooltip = "Settings for SpongeAugments",
+	IconAssetID = "rbxassetid://87024861341187",
+	LightIconAssetID = "rbxassetid://127048252171392",
+	ClickedCallback = OpenWindow,
+	BuildMenu = BuildMenu
+}]]></ProtectedString>
+					<string name="ScriptGuid">{35A50E7E-2F47-4C7C-868B-9332127FA6DE}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Main</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBXAA6CBF867CE14C7482DCF6E060E6D29D">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<ProtectedString name="Source"><![CDATA[return {
+	ONE_CLICK_ENABLED = "OneClickEnabled"
+}]]></ProtectedString>
+					<string name="ScriptGuid">{4948C85F-7E17-4FC5-9058-4D864150BA5C}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">SettingsKeys</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
 		</Item>
-		<Item class="Folder" referent="RBX7453597B5A2C4160BF75DD390F76D5C6">
+		<Item class="Folder" referent="RBX6516366BD9774BD189ACDB50EDDFFFDB">
 			<Properties>
 				<BinaryString name="AttributesSerialize"></BinaryString>
 				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
@@ -587,48 +951,67 @@ return {
 				<int64 name="SourceAssetId">-1</int64>
 				<BinaryString name="Tags"></BinaryString>
 			</Properties>
-			<Item class="ModuleScript" referent="RBX3B644BEBB90943E289D21397168031A7">
+			<Item class="ModuleScript" referent="RBX979C74707BB643D5BE351CC51219E4E3">
 				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">Main</string>
-					<string name="ScriptGuid">{EF17C8F4-4127-4D1F-890C-286169E6F9E2}</string>
 					<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.ToolsCommon)
 local attributeMan = require(script.Parent.AttributeMan)
 local cinfoHandler = require(script.Parent.InfilClassInfo)
+
+local function ValidBase(exact, archPath)
+	if type(exact) == "string" and type(archPath) == "table" then return true end
+	if exact == nil and type(archPath) == "string" then
+		return false,
+			"{vName} is invalid with reason : " .. archPath .. " : Instance will be skipped"
+	elseif type(exact) == "string" and archPath == nil then
+		return true,
+			"{vName}'s class couldn't be inferred - will default to trying its name"
+	else
+		return false, 
+			"Encountered unspecified error/bug in Class/Archetype deduction on {vName} - report this error message at your first convenience\n" ..
+			`[DebugInfo] Exact: {exact}, ArchPath: {archPath}`
+	end
+end
+
+local function HasPrivateAttrs(exact, archPath)
+	local valid, warnMsg = ValidBase(exact, archPath)
+	if not valid then return valid, warnMsg end
+	valid = cinfoHandler.ClassHasPrivateAttrs(exact, archPath)
+	return valid, (not valid) and `\{vName}'s class {exact} has no private attributes : Instance will be skipped`
+end
+
+local function AcceptsGlobalAttrs(exact, archPath)
+	local valid, warnMsg = ValidBase(exact, archPath)
+	if not valid then return valid, warnMsg end
+	valid = cinfoHandler.ClassAcceptsGlobalAttrs(archPath)
+	return valid, (not valid) and `\{vName}'s class {exact} does not import globals : Instance will be skipped`
+end
+
+local function ValidOfSelection(selection, includePrivate, includeGlobal)
+	local validator = ((includePrivate == includeGlobal) and ValidBase) or (includePrivate and HasPrivateAttrs) or AcceptsGlobalAttrs
+	
+	local validSelection = {}
+	for _, v in ipairs(selection) do 
+		local exact, archPath = cinfoHandler.FindInstanceClass(v)
+		local selectElemValid, warnMsg = validator(exact, archPath)
+		if warnMsg then
+			warnMsg = string.gsub(warnMsg, "{vName}", v.Name)
+			warn(warnMsg)
+		end
+		
+		if selectElemValid then
+			validSelection[#validSelection+1] = v
+		end
+	end
+	
+	return validSelection
+end
 
 local function ImportAttributesForSelection(includePrivate, includeGlobal, deleting)
 	local debugMission = common:LevelFolder()
 	if debugMission == nil then warn("Couldn't find mission folder! Doing nothing") return end
 	
-	local selection = common:GetSelection()
-	local validSelection = nil
-	if includePrivate and not includeGlobal and not deleting then
-		validSelection = {}
-		for _, v in pairs(selection) do
-			local thisInstanceIsValid = cinfoHandler.ClassHasPrivateAttrs( cinfoHandler.FindInstanceClass(v) ) 
-			if not thisInstanceIsValid then
-				warn(`Selection {v.Name} has no valid private attributes! Item will be skipped`)
-			else
-				validSelection[#validSelection+1] = v
-			end
-		end
-	end
-	
-	if includeGlobal and not includePrivate and not deleting then
-		validSelection = {}
-		for _, v in pairs(selection) do
-			local _, tPath = cinfoHandler.FindInstanceClass(v)
-			local thisInstanceIsValid = cinfoHandler.ClassAcceptsGlobalAttrs(tPath)
-			if not thisInstanceIsValid then
-				warn(`Selection {v.Name} is of class {tPath.Name} which does not make use of globals! Item will be skipped`) 
-			else
-				validSelection[#validSelection+1] = v
-			end
-		end
-	end
+	local selection = ValidOfSelection(game.Selection:Get(), includePrivate, includeGlobal)
 	
 	local recording = common:RecordChanges("Import Attributes For Selection")
 	if not recording then return end
@@ -647,27 +1030,23 @@ local function ImportAttributesForSelection(includePrivate, includeGlobal, delet
 	end
 	
 	local success = runner(function()
-		validSelection = validSelection or selection
-		for _, v in pairs(validSelection) do
+		for _, v in pairs(selection) do
 			local instanceClass, classPath = cinfoHandler.FindInstanceClass(v)
-			local attributeList
-			if classPath == nil then
-				attributeList = cinfoHandler.GetPrivateAttributes(instanceClass)
-			else
-				local classInfo = cinfoHandler.ClassInfoFromPath(classPath)
-				attributeList = common:TableMerge(
-					cinfoHandler.GetPrivateAttributes(instanceClass),
-					includeGlobal and cinfoHandler.ClassAcceptsGlobalAttrs(classInfo) and cinfoHandler.GetGlobalAttributes() or {},
-					true
-				)
-			end
+			local attributeList = cinfoHandler.GetPrivateAttributes(instanceClass, classPath)
+			if classPath == nil then attributeMan.ApplyAttributes(v, attributeList, deleting) continue end
+			
+			local classInfo = cinfoHandler.ClassInfoFromPath(classPath)
+			attributeList = common:TableMerge(
+				attributeList,
+				includeGlobal and cinfoHandler.ClassAcceptsGlobalAttrs(classInfo) and cinfoHandler.GetGlobalAttributes() or {},
+				true
+			)
 			
 			attributeMan.ApplyAttributes(v, attributeList, deleting)
 		end
 	end)
 	
 	common:CommitChanges(recording, success and Enum.FinishRecordingOperation.Commit or Enum.FinishRecordingOperation.Cancel)
-	
 end
 
 local function NonGlobalImport()
@@ -767,19 +1146,28 @@ return {
 	ClickedCallback = OpenWindow,
 	BuildMenu = BuildMenu
 }]]></ProtectedString>
+					<string name="ScriptGuid">{EF17C8F4-4127-4D1F-890C-286169E6F9E2}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">Main</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX5C17EC9BF2BD4CC0990A837024CA3E7A">
+			<Item class="ModuleScript" referent="RBXAEF7178287314CBFA859350F677B3D1A">
 				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">PropListExtensions</string>
-					<string name="ScriptGuid">{A13780BC-4015-49C6-82E2-2B28498EC609}</string>
-					<ProtectedString name="Source"><![CDATA[local AttributeType = require(script.Parent.NotMineThisIsSperosPleaseDontSueMe.PropAttributeTypes)
+					<ProtectedString name="Source"><![CDATA[local AttributeType = require(script.Parent.NotMinePleaseDontSueMe.PropAttributeTypes)
+
+local stateScriptInfo = {
+	DebugLineVariable 	= { AttributeType.STRING, nil },
+	DebugLogId			= { AttributeType.STRING, nil },
+	DebugVariable		= { AttributeType.STRING, nil },
+	Run 			= { AttributeType.STRING, "1" },
+	ScriptSource 	= { AttributeType.STRING, nil },
+	TriggerEvent	= { AttributeType.STRING, nil }
+}
 
 return {
 	Bot = {
@@ -858,62 +1246,176 @@ return {
 		Sound = { AttributeType.NUMBER	  ,  1  },
 	},
 
-	StateScript = {
-		DebugLineVariable 	= { AttributeType.STRING, nil },
-		DebugLogId			= { AttributeType.STRING, nil },
-		DebugVariable		= { AttributeType.STRING, nil },
-		Run 			= { AttributeType.STRING, "1" },
-		ScriptSource 	= { AttributeType.STRING, nil },
-		TriggerEvent	= { AttributeType.STRING, nil }
-	},
+	StateScript = stateScriptInfo,
+	StateScriptPart = stateScriptInfo,
 	
 	Motor = {
-		Link			= { AttributeType.STRING, nil },
-		Offset			= { AttributeType.CFRAME, nil },
-		Rotation 		= { AttributeType.VECTOR3, nil },
-		AnimType		= { AttributeType.INT	, nil },
-		AnimTime		= { AttributeType.NUMBER, nil },
-		ClampMax		= { AttributeType.NUMBER, 0 },
-		ClampMin		= { AttributeType.NUMBER, 1 },
-		ClampLoop		= { AttributeType.BOOL	, false },
+		Link			= { AttributeType.STRING, 	nil 	},
+		Offset			= { AttributeType.CFRAME, 	nil 	},
+		Rotation 		= { AttributeType.VECTOR3, 	nil 	},
+		AnimType		= { AttributeType.INT	, 	nil 	},
+		AnimTime		= { AttributeType.NUMBER, 	nil 	},
+		ClampMax		= { AttributeType.NUMBER, 	0 		},
+		ClampMin		= { AttributeType.NUMBER, 	1 		},
+		ClampLoop		= { AttributeType.BOOL	, 	false 	},
+	},
+	
+	CustomPropPart = {
+		PropDamage 		= { AttributeType.BOOL, 	true 		},
+		CollisionGroup	= { AttributeType.STRING, 	"Default"	}
+	},
+	
+	CustomItem = {
+		Class 			= { AttributeType.STRING, "None" 			},
+		DescKey 		= { AttributeType.STRING, "ItemDesc.Unset"	},
+		InvSizeX		= { AttributeType.INT,	  1 				},
+		InvSizeY		= { AttributeType.INT,	  1 				},
+		IsOffhand		= { AttributeType.BOOL,	  false 			},
+		IsOffhandOnly	= { AttributeType.BOOL,	  false 			},
+		NameKey			= { AttributeType.STRING, "Item.Unset" 		},
+		Volume			= { AttributeType.INT,	  4 				},
+		Weight			= { AttributeType.INT,	  0 				}
+	},
+	
+	CombatFlowNode = {
+		BlockedLinks	= { AttributeType.STRING, "{}" },
+		FilteredLinks	= { AttributeType.STRING, "[]" },
+		Id				= { AttributeType.STRING, function(n) return n.Name end },
+		LinkedIds		= { AttributeType.STRING, "[]" },
 	}
 }]]></ProtectedString>
+					<string name="ScriptGuid">{A13780BC-4015-49C6-82E2-2B28498EC609}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">PropListExtensions</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX83607D4B0BAE4DF096B27E52CCB42AB1">
+			<Item class="ModuleScript" referent="RBX94C3C362132C451BA2DB38794C7F480D">
 				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">InfilClassInfo</string>
-					<string name="ScriptGuid">{C41F5D79-94D5-4CD3-AA9C-67754D8BE978}</string>
-					<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.ToolsCommon)
+					<ProtectedString name="Source"><![CDATA[local httpService = game:GetService("HttpService")
+
+local common = require(script.Parent.Parent.ToolsCommon)
+local plugin = require(script.Parent.Parent.PluginSingleton):Underlying()
 
 local InfilClassInfo = {}
 
-local classSearchInfo = require(script.Parent.InfilClassSearchInfo)
-InfilClassInfo.SearchInfo = classSearchInfo
+local APIConsumer = require(script.Parent.APIConsumer)
+local internalAttributesMap = require(script.Parent.NotMinePleaseDontSueMe.AttributesMap)
+local attrMan = require("./AttributeMan")
+
+local searchInfoValidator = require(script.Parent.SearchInfo.Validator)
+local builtinSearchInfo = require(script.Parent.SearchInfo.Builtin)
+local foreignSeachInfo = {}
+
+InfilClassInfo.BuiltinSearchInfo = builtinSearchInfo
+InfilClassInfo.ForeignSearchInfo = foreignSeachInfo
 
 local infilEngineAttributes = {
-	Global = require(script.Parent.NotMineThisIsSperosPleaseDontSueMe.GlobalAttributes),
-	Private = require(script.Parent.NotMineThisIsSperosPleaseDontSueMe.AttributesMap),
-	Extensions = require(script.Parent.PropListExtensions)
+	Global = require(script.Parent.NotMinePleaseDontSueMe.GlobalAttributes),
+	Extensions = require(script.Parent.PropListExtensions),
+	PluginExtensions = {}
 }
 
-local function FindExactClassRecurse(instance: Instance, knownClass: classSearchInfo.ClassSearchInfo, recurse_tpath: {string}?)
-	recurse_tpath = recurse_tpath or {}
+local function GetUserExtensions()
+	local userExtensionsScript = game.ReplicatedStorage:FindFirstChild("AttributesMapExtensions")
+	if not userExtensionsScript then return {} end
+	if not userExtensionsScript:IsA("ModuleScript") then warn(`AttributesMapExtensions is of invalid class {userExtensionsScript.ClassName}!`) return {} end
+	local success, extensions = pcall(function() return require(userExtensionsScript) end)
+	if not success then warn(`AttributesMapExtensions failed to execute, failed with: `, extensions) return {} end
+	return extensions
+end
+
+local function onAPILoaded(api: APIConsumer.APIReference, state)
+	state.APIHooks = state.APIHooks or {}
+	state.APIExtensions = state.APIExtensions or {}
+	state.APIExtensions[1] = api.AddAPIExtension(
+		"AttributeImporter",
+		"Sprix",
+		{
+			AddAbstractionImporter = function(abstractionName, searchInfo, importCallback)
+				if type(searchInfo) ~= "table" then return nil end
+				if type(importCallback) ~= "function" then return nil end
+				if type(abstractionName) ~= "string" then return nil end
+				
+				local infoValid = searchInfoValidator.EntryIsValid(searchInfo, abstractionName)
+				if not infoValid then return nil end
+				
+				local token = httpService:GenerateGUID(false)
+				
+				searchInfo.IsAbstraction = true
+				searchInfo.AbstractionName = abstractionName
+				
+				InfilClassInfo.ForeignSearchInfo[abstractionName] = searchInfo
+				infilEngineAttributes.PluginExtensions[token] = {
+					Name = abstractionName,
+					Callback = importCallback
+				}
+				return token
+			end,
+			RemoveAbstractionImporter = function(token)
+				local abstractionName = infilEngineAttributes.PluginExtensions[token].Name 
+				InfilClassInfo.ForeignSearchInfo[abstractionName] = nil
+				infilEngineAttributes.PluginExtensions[token] = nil
+			end,
+		}
+	)
+	
+end
+
+local function onAPIUnloaded(api: APIConsumer.APIReference, state)
+	for _, token in ipairs(state.APIHooks) do
+		api.RemoveHook(token)
+	end
+	
+	for _, extensionToken in ipairs(state.APIExtensions) do
+		api.RemoveAPIExtension(extensionToken)
+	end
+end
+
+task.spawn(function()
+	APIConsumer.DoAPILoop(plugin, "SpongeZoneTools-AttributeImporter", onAPILoaded, onAPIUnloaded, {})
+end)
+
+setmetatable(
+	infilEngineAttributes,
+	{
+		__index = function(tbl, k)
+			if k == "Private" then
+				local success, api = APIConsumer.TryGetAPI()
+				if not success then return internalAttributesMap end
+				return api.GetAttributesMap()
+			elseif k == "UserExtensions" then
+				return GetUserExtensions()
+			end
+		end,
+	}
+)
+
+local function GetExactClass(instance, arch)
 	local exactClass = nil
-	if knownClass.TypeIsName then
+	local failReason = nil
+	if arch.TypeIsName then
 		exactClass = instance.Name
-	elseif knownClass.TypeIsAttribute then
-		exactClass = instance:GetAttribute("Type") 
-	elseif knownClass.TypeIsParentName then
+	elseif arch.TypeIsAttribute then
+		exactClass = instance:GetAttribute(arch.TypeIsAttribute)
+		failReason = (type(exactClass) ~= "string") and arch.TypeIsAttribute .. " attribute is of non-string datatype on " .. tostring(instance.Parent) .. '.' .. instance.Name
+	elseif arch.TypeIsParentName then
 		exactClass = instance.Parent.Name
 	else
-		exactClass = knownClass.Name
+		exactClass = arch.Name
+	end
+	return exactClass, failReason
+end
+
+local function FindExactClassRecurse(instance: Instance, knownClass: builtinSearchInfo.ClassSearchInfo, recurse_tpath: {string}?)
+	recurse_tpath = recurse_tpath or {}
+	local exactClass, failReason = GetExactClass(instance, knownClass)
+	if exactClass == nil then
+		return nil, failReason
 	end
 	
 	recurse_tpath[#recurse_tpath+1] = knownClass.Name
@@ -921,15 +1423,37 @@ local function FindExactClassRecurse(instance: Instance, knownClass: classSearch
 		return exactClass, recurse_tpath
 	end
 	
-	for _, subType in pairs(knownClass.SubTypes) do
-		if subType.Name ~= exactClass then continue end
+	local defaultSubType = nil
+	for k, subType in pairs(knownClass.SubTypes) do
+		if subType.IsDefault then defaultSubType = subType continue end
+		local subTypeClass = GetExactClass(instance, subType)
+		if subType.Name ~= subTypeClass then continue end
 		return FindExactClassRecurse(instance, subType, recurse_tpath)
 	end
+	
+	if defaultSubType then return FindExactClassRecurse(instance, defaultSubType, recurse_tpath) end
+	
+	return exactClass, recurse_tpath
+end
+
+local function folderPathCheck(instance, folderPath, descendant)
+	if type(folderPath) ~= "table" then folderPath = { folderPath } end
+	if type(folderPath[1]) ~= "table" then folderPath = { folderPath } end
+	local checkPassed = false
+	for _, validPath in ipairs(folderPath) do
+		if validPath[1] == "@LevelRoot" then
+			checkPassed = instance.Parent == common:LevelFolder()
+		else
+			checkPassed = common:AncestryCheck(instance, validPath, descendant)
+		end
+		if checkPassed then break end
+	end
+	return checkPassed
 end
 
 function InfilClassInfo.FindInstanceClass(instance)
-	for _, v in pairs(InfilClassInfo.SearchInfo) do
-		if not common:NullableDescendantOf(instance, v.FolderPath, common:LevelFolder()) then continue end
+	for _, v in pairs(InfilClassInfo.BuiltinSearchInfo) do	
+		if not folderPathCheck(instance, v.FolderPath, v.FolderRelation == "descendant") then continue end
 		
 		if v.ValidClasses ~= nil and not common:InstanceIsAny(instance, v.ValidClasses) then 
 			warn(`Instance {instance.Name} is not a valid {v.Name}! Skipping`) 
@@ -939,14 +1463,43 @@ function InfilClassInfo.FindInstanceClass(instance)
 		return FindExactClassRecurse(instance, v)
 	end
 	
+	for _, v in pairs(InfilClassInfo.ForeignSearchInfo) do
+		if not folderPathCheck(instance, v.FolderPath, v.FolderRelation == "descendant") then continue end
+
+		if v.ValidClasses ~= nil and not common:InstanceIsAny(instance, v.ValidClasses) then 
+			warn(`Instance {instance.Name} is not a valid {v.Name}! Skipping`) 
+			return nil 
+		end
+
+		return FindExactClassRecurse(instance, v)
+	end
+	
 	warn(`{instance.Parent.Name}.{instance.Name} is of unknown class!`)
 	return instance.Name, nil
 end
 
-function InfilClassInfo.GetPrivateAttributes(className)
+function InfilClassInfo.GetPrivateAttributes(className, classPath)
+	local classSearchInfo = InfilClassInfo.ClassInfoFromPath(classPath)
 	local privateAttrList = {}
 	common:TableMerge(privateAttrList, infilEngineAttributes.Extensions[className])
 	common:TableMerge(privateAttrList, infilEngineAttributes.Private[className])
+	common:TableMerge(privateAttrList, infilEngineAttributes.UserExtensions[className])
+	
+	if type(classSearchInfo) == "table" and classSearchInfo.IsAbstraction then
+		for _, abstraction in pairs(infilEngineAttributes.PluginExtensions) do
+			if abstraction.Name ~= classSearchInfo.AbstractionName then continue end
+			local abstractionAttrs = {}
+			local success, attrs = pcall(abstraction.Callback, className)
+			if not success then
+				warn(`Attribute Importer : {abstraction.Name} Callback : Failed with {attrs} : Will Ignore`)
+				continue
+			end
+			for k, attr in pairs(attrs) do
+				abstractionAttrs[k] = { attrMan.AttributeTypeFromNativeType(attr[1]), attr[2] }
+			end
+			common:TableMerge(privateAttrList, abstractionAttrs)
+		end
+	end
 
 	return privateAttrList
 end
@@ -960,124 +1513,53 @@ local function tostringClassPath(classPath, classPathStr)
 	return tostringClassPath(common:TableSlice(classPath, 2, #classPath), classPathStr)
 end
 
-local function traverseClassPath(classPath, classSrc: {classSearchInfo.ClassSearchInfo})
+local function traverseClassPath(classPath, classSrc: {builtinSearchInfo.ClassSearchInfo})
+	if classPath == nil then return nil end
+	if classPath[1] == nil then return nil end
+	local nextInPath = classSrc[classPath[1]] 
+	if nextInPath == nil then return nil end
 	if #classPath < 2 then
-		return classSrc[classPath[1]]
+		return nextInPath
 	else
-		return traverseClassPath(common:TableSlice(classPath, 2, #classPath), classSrc[classPath[1]].SubTypes)
+		return traverseClassPath(common:TableSlice(classPath, 2, #classPath), nextInPath.SubTypes)
 	end
 end
 
 function InfilClassInfo.ClassInfoFromPath(classPath)
-	return traverseClassPath(classPath, InfilClassInfo.SearchInfo)
+	return traverseClassPath(classPath, InfilClassInfo.BuiltinSearchInfo) 
+		or traverseClassPath(classPath, InfilClassInfo.ForeignSearchInfo)
 end
 
-function InfilClassInfo.ClassHasPrivateAttrs(exactClass)
-	return infilEngineAttributes.Private[exactClass] ~= nil or infilEngineAttributes.Extensions[exactClass] ~= nil
+function InfilClassInfo.ClassHasPrivateAttrs(exactClass, classPath)
+	local classSearchInfo = InfilClassInfo.ClassInfoFromPath(classPath)
+	if type(classSearchInfo) == "table" and classSearchInfo.IsAbstraction then
+		for _, pluginExtension in pairs(infilEngineAttributes.PluginExtensions) do
+			if pluginExtension.Name == classSearchInfo.AbstractionName then return true end
+		end
+	end
+	return infilEngineAttributes.Private[exactClass] ~= nil 
+		or infilEngineAttributes.Extensions[exactClass] ~= nil
+		or infilEngineAttributes.UserExtensions[exactClass] ~= nil
 end
 
-function InfilClassInfo.ClassAcceptsGlobalAttrs(class: classSearchInfo.ClassSearchInfo)
+function InfilClassInfo.ClassAcceptsGlobalAttrs(class: builtinSearchInfo.ClassSearchInfo)
 	return class.ImportsGlobals
 end
 
 return InfilClassInfo]]></ProtectedString>
+					<string name="ScriptGuid">{C41F5D79-94D5-4CD3-AA9C-67754D8BE978}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">InfilClassInfo</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="ModuleScript" referent="RBX3668093FCAA14DC9B2A7E035DA194392">
+			<Item class="ModuleScript" referent="RBXFBE6346529F24F539D508F1778E98C38">
 				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
 					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">InfilClassSearchInfo</string>
-					<string name="ScriptGuid">{8FDCD250-1D0E-485F-8F87-75520304AECA}</string>
-					<ProtectedString name="Source"><![CDATA[export type ClassSearchInfo = {
-	Name:				string,
-	FolderPath: 		{string},
-	ValidClasses: 		{string},
-	
-	ImportsGlobals:		boolean?,
-	TypeIsAttribute: 	boolean?,
-	TypeIsName: 		boolean?,
-	TypeIsParentName: 	boolean?,
-	
-	SubTypes:			{ClassSearchInfo}?,
-}
-
-local classSearchInfo: {ClassSearchInfo} = {
-	StateComponent = {
-		FolderPath 		= { "StateComponents" },
-		ValidClasses 	= { "BoolValue" },
-		TypeIsAttribute = true,
-		ImportsGlobals 	= false
-	},
-	ConditionalGeometry = {
-		FolderPath 		= { "ConditionalGeometry" },
-		ValidClasses 	= { "Model" }
-	},
-	LoudSpawn = {
-		FolderPath 		= { "LoudSpawns" },
-		ValidClasses 	= { "BasePart" },
-		TypeIsName 		= true,
-		ImportsGlobals 	= false
-	},
-	Prop = {
-		FolderPath 		= { "Props" },
-		ValidClasses 	= { "BasePart" },
-		TypeIsName 		= true
-	},
-	Glass = {
-		FolderPath 		= { "Glass" },
-		ValidClasses 	= { "BasePart" }
-	},
-	Link = {
-		FolderPath 		= { "Cells", "Links" },
-		ValidClasses 	= { "BasePart" },
-		ImportsGlobals 	= false
-	},
-	Bot = { 
-		FolderPath 		= { "Bots" },
-		ValidClasses 	= { "BoolValue" },
-		ImportsGlobals 	= false
-	},
-	CustomPropElement = {
-		FolderPath 		= { "CustomProps" },
-		ValidClasses 	= { "BasePart" },
-		ImportsGlobals 	= false,
-		TypeIsName 		= true,
-		SubTypes = {
-			Motor 	= { ImportsGlobals = false },
-			Base 	= { ImportsGlobals = false, TypeIsParentName = true }
-		}
-	}
-}
-
-local function GenNamesRecurse(on)
-	for k, v in pairs(on) do
-		v.Name = k
-		if v.SubTypes == nil then continue end
-		GenNamesRecurse(v.SubTypes)
-	end
-end
-
-GenNamesRecurse(classSearchInfo)
-
-return classSearchInfo]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBXB685823F2F874DB9BBD01D14E7DCD285">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">AttributeMan</string>
-					<string name="ScriptGuid">{65E3F41E-4C03-47DA-B6BA-B18BBE32298D}</string>
-					<ProtectedString name="Source"><![CDATA[local attributeType = require(script.Parent.NotMineThisIsSperosPleaseDontSueMe.PropAttributeTypes)
+					<ProtectedString name="Source"><![CDATA[local attributeType = require(script.Parent.NotMinePleaseDontSueMe.PropAttributeTypes)
 
 local AttributeMan = {}
 
@@ -1103,8 +1585,23 @@ local attributeTypeDefaults = {
 	[attributeType.CFRAME					] = CFrame.new(),
 }
 
+local attributeTypeNativeTypes = {}
+for k, v in pairs(attributeTypeDefaults) do attributeTypeNativeTypes[k] = typeof(v) end
+
+local nativeTypesToAttributeTypes = {}
+for k, v in pairs(attributeTypeNativeTypes) do
+	if nativeTypesToAttributeTypes[v] ~= nil then continue end
+	nativeTypesToAttributeTypes[v] = k
+end
+
+function AttributeMan.AttributeTypeFromNativeType(nativeType)
+	return nativeTypesToAttributeTypes[nativeType]
+end
+
 function AttributeMan.ValueOrDefault(attrDetails)
-	if attrDetails[2] == nil then
+	if attrDetails[2] == nil or typeof(attrDetails[2]) ~= attributeTypeNativeTypes[attrDetails[1]] then
+		-- Use default from above table if AttributesMap provides no default
+		-- Or if default is of wrong type
 		return attributeTypeDefaults[attrDetails[1]]
 	else
 		return attrDetails[2]
@@ -1115,72 +1612,675 @@ function AttributeMan.ApplyAttributes(to, attrs, deleting)
 	for attrName, attrDetails in pairs(attrs) do
 		if deleting then to:SetAttribute(attrName, nil) continue end
 		if to:GetAttribute(attrName) ~= nil then continue end
-		to:SetAttribute(attrName, AttributeMan.ValueOrDefault(attrDetails))
+		
+		local newAttrVal = AttributeMan.ValueOrDefault(attrDetails)
+		if type(attrDetails[2]) == "function" then
+			local success, attrVal = pcall(attrDetails[2], to)
+			if success and typeof(attrVal) == typeof(newAttrVal) then
+				newAttrVal = attrVal
+			elseif success then
+				warn(`Attribute function {attrName} returned value of type {typeof(attrVal)}, expected {typeof(newAttrVal)} - will use safe default`)
+			else
+				warn(`Attribute function {attrName} failed with reason: {attrVal}`)
+			end
+		end
+		to:SetAttribute(attrName, newAttrVal)
 	end
 end
 
 return AttributeMan
 ]]></ProtectedString>
+					<string name="ScriptGuid">{65E3F41E-4C03-47DA-B6BA-B18BBE32298D}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">AttributeMan</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
 			</Item>
-			<Item class="Folder" referent="RBX85128213907F4E178B0F1B1283EE19DA">
+			<Item class="ModuleScript" referent="RBX20363D7726F348A980D583C6601405DA">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<ProtectedString name="Source"><![CDATA[--[[
+	This module is provided for convenience of consumers of the serializer API
+	providing a reference implementation for correctly retrieving and validating a reference to the API table
+
+	For a working example of a plugin making use of this API via this module
+	see: https://github.com/Sprixitite/InfiltrationEngine-PrefabSystem
+]]
+
+local coreGui = game:GetService("CoreGui")
+
+export type Token = string
+export type Hook = (...any) -> nil
+export type HookType = "APIExtensionLoaded"|"APIExtensionUnloaded"|"PreSerialize"|"PreSerializeMissionSetup"|"SerializerUnloaded"
+export type APIExtension = { [string] : (...any) -> ...any }
+
+export type APIReference = {
+	-- Generic
+	GetAPIVersion 			: () -> number,
+	GetCodeVersion 			: () -> number,
+	GetAttributesMap 		: () -> { [string] : { [number] : any } },
+	GetAttributeTypes 		: () -> { [string] : number },
+	GetRegistrantFactory	: (author: string, plugin: string) -> ((hookName: string) -> string), 
+
+	-- HookTypes
+	GetHookTypes 			: () -> { [number] : string },
+	IsHookTypeValid 		: (hookType: string, warnCaller: string?) -> boolean,
+
+	-- Hooks
+	AddHook 				: (hookType: HookType, registrant: string, hook: Hook, hookState: {any}?) -> Token,
+	RemoveHook 				: (token: Token) -> nil,
+
+	-- APIExtensions
+	AddAPIExtension 		: (name: string, author: string, contents: APIExtension) -> Token,
+	GetAPIExtension			: (name: string, author: string) -> APIExtension,
+	RemoveAPIExtension		: (token: Token) -> nil
+}
+
+type AnyTbl = { [string] : any }
+
+local APIConsumer = {}
+
+local function ValidateArgTypes(fname: string, ...) : boolean
+	local args = {...}
+	for _, argSettings in ipairs(args) do
+		local argName = argSettings[1]
+		local argValue = argSettings[2]
+		local argType = type(argValue)
+		local argExpectedType = argSettings[3]
+		if argType ~= argExpectedType then
+			warn(`Invalid argument {argName} passed to function {fname} - expected type {argExpectedType} but got {argType}!`)
+			return false
+		end
+	end
+	return true
+end
+
+APIConsumer.ValidateArgTypes = ValidateArgTypes
+
+-- Yields until timeOut is elapsed or API is found
+APIConsumer.WaitForAPI = function(timeOut: number?) : APIReference?
+	timeOut = if timeOut == nil then math.huge else timeOut
+
+	if not ValidateArgTypes(
+		"WaitForAPI",
+		{"timeOut", timeOut, "number"}
+		) then return end
+
+	local presenceIndicator = coreGui:WaitForChild("InfilEngine_SerializerAPIAvailable", timeOut)
+	if not presenceIndicator then return end
+
+	local apiTbl = shared.InfilEngine_SerializerAPI
+	if not (tostring(apiTbl) == presenceIndicator.Value) then return end
+
+	return apiTbl
+end
+
+-- Attempt to get the API without blocking - returns false + nil if unavailable, otherwise returns true + APIReference
+APIConsumer.TryGetAPI = function() : (boolean, APIReference?)
+	local presenceIndicator = coreGui:FindFirstChild("InfilEngine_SerializerAPIAvailable")
+	if not presenceIndicator then return false, nil end
+
+	local apiTbl = shared.InfilEngine_SerializerAPI
+	if not (tostring(apiTbl) == presenceIndicator.Value) then return false, nil end
+
+	return true, apiTbl
+end
+
+-- Never returns unless there's an error
+-- Continually wires up handling of serializer load/unload as well as unloading of consumer plugin as needed
+-- Avoid doing this yourself if you can help it
+APIConsumer.DoAPILoop = function<StateT>(
+	callerPlugin: Plugin,
+	srcname: string,
+	loadedClbck: (api: APIReference, state: StateT) -> nil,
+	unloadedClbck: (api: APIReference, state: StateT) -> nil, 
+	state: StateT?
+) : never
+	state = if state == nil then {} else state
+
+	if typeof(callerPlugin) ~= "Instance" then
+		warn(`Invalid argument callerPlugin passed to DoAPILoop - expected type Plugin but got {typeof(callerPlugin)}!`)
+		return
+	end
+
+	if callerPlugin.ClassName ~= "Plugin" then
+		warn(`Invalid argument callerPlugin passed to DoAPILoop - expected type Plugin but got {callerPlugin.ClassName}!`)
+		return
+	end
+
+	if not ValidateArgTypes(
+		"DoAPILoop", 
+		{"srcname", srcname, "string"},
+		{"loadedClbck", loadedClbck, "function"},
+		{"unloadedClbck", unloadedClbck, "function"},
+		{"state", state, "table"}
+		) then return end
+
+	local api = APIConsumer.WaitForAPI()
+	if api == nil then return APIConsumer.DoAPILoop(callerPlugin, srcname, loadedClbck, unloadedClbck, state) end
+
+	loadedClbck(api, state)
+
+	local pluginUnloadCallback
+	local unloadToken
+
+	pluginUnloadCallback = callerPlugin.Unloading:Connect(function()
+		pluginUnloadCallback:Disconnect()
+		pluginUnloadCallback = nil
+		unloadedClbck(api, state)
+		if unloadToken ~= nil then api.RemoveHook(unloadToken) end
+	end)
+
+	unloadToken = api.AddHook("SerializerUnloaded", `APIConsumerFramework_{srcname}`, function()
+		if pluginUnloadCallback then pluginUnloadCallback:Disconnect() pluginUnloadCallback = nil end
+		unloadedClbck(api, state)
+		task.spawn(APIConsumer.DoAPILoop, callerPlugin, srcname, loadedClbck, unloadedClbck, state)
+	end)
+end
+
+return APIConsumer]]></ProtectedString>
+					<string name="ScriptGuid">{1CDF5597-3431-4C6D-B0B5-377FD99D4058}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">APIConsumer</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="ModuleScript" referent="RBXA448BFA202054BDB8F1EC55BD5B37AC4">
+				<Properties>
+					<Content name="LinkedSource"><null></null></Content>
+					<ProtectedString name="Source"><![CDATA[--[[
+	GLUt // GoodLuaUtilities // Lua5.1 utilities module
+	
+	© Sprixitite, 2025
+]]
+
+local GLUt = {}
+
+local GLUtCfg = {
+	print = print,
+	warn  = function(...) print("WARNING", ...) end,
+	error = error,
+	type  = type
+}
+
+local patternSpecChars = { '(', ')', '.', '%', '+', '-', '*', '?', '[', ']', '^', '$' }
+
+GLUt.severity = {
+	SILENT = 0,
+	LOG = 1,
+	WARN = 2,
+	ERR = 3,
+	ERROR = 3
+}
+
+local function severity_warn(sev, ...)
+	if sev == GLUt.severity.SILENT then return end
+	local warn_fn
+	if sev == GLUt.severity.LOG then
+		warn_fn = GLUtCfg.print
+	elseif sev == GLUt.severity.WARN then
+		warn_fn = GLUtCfg.warn
+	else
+		warn_fn = GLUtCfg.error
+	end
+	warn_fn(...)
+end
+
+function GLUt.configure(tbl)
+	for k, v in pairs(tbl) do
+		if GLUtCfg[k] ~= nil then
+			GLUtCfg[k] = v
+		else
+			GLUtCfg.warn("Attempt to set invalid GLUtCfg Key \"" .. tostring(k) .. "\"")
+		end
+	end
+end
+
+function GLUt.custom_iter(tbl, keys)
+	local i = 0
+	return function()
+		i = i + 1
+		local requested = {}
+		local iTbl = tbl[i]
+		if iTbl == nil then return nil end
+		for _, k in ipairs(keys) do
+			requested[#requested+1] = iTbl[k]
+		end 
+		return i, unpack(requested)
+	end
+end
+
+function GLUt.custom_iter_template(...)
+	local varargs = { ... }
+	return function(tbl) return GLUt.custom_iter(tbl, varargs) end
+end
+
+function GLUt.default(arg, default)
+	return (arg == nil) and default or arg
+end
+
+function GLUt.default_exec(arg, fn)
+	return (arg == nil) and fn() or arg
+end
+
+function GLUt.default_bounds(arg, default, min, max)
+	if arg == nil then return default end
+	if arg < min then return default end
+	if max < arg then return default end
+	return arg
+end
+
+function GLUt.default_typed(arg, default, argName, funcName)
+	local argType = GLUtCfg.type(arg)
+	local defaultType = GLUtCfg.type(default)
+	if argType == defaultType then return arg end
+	if argType == "nil" then return default end
+	GLUt.type_warn(argName, funcName, defaultType, argType)
+	return default
+end
+
+function GLUt.type_warn(argName, funcName, expected, got, severity)
+	if argName == nil or expected == got then return end
+	if type(severity) == "boolean" then
+		severity = severity and GLUt.severity.ERROR or GLUt.severity.WARN 
+	end
+	severity = GLUt.default_bounds(severity, GLUt.severity.ERROR, GLUt.severity.SILENT, GLUt.severity.ERROR)
+
+	local warnStart = GLUt.type_is(funcName, "string") and (funcName .. ": expected arg \"") or "Expected arg \""
+	severity_warn(severity, warnStart .. argName .. "\" of type \"" .. expected .. "\" got type \"" .. got .. "\"!")
+	severity_warn(severity, "Traceback: " .. debug.traceback())
+end
+
+function GLUt.type_check(arg, expected, argName, funcName, severity)
+	local argType = GLUtCfg.type(arg)
+
+	expected = string.gsub(expected, '?', "|nil")
+	for _, validType in pairs(GLUt.str_split(expected, '|')) do
+		if validType == argType then return true end
+	end
+
+	GLUt.type_warn(argName, funcName, expected, argType, severity)
+
+	return false
+end
+
+function GLUt.type_is(a1, t)
+	return GLUtCfg.type(a1) == t
+end
+
+function GLUt.type_eq(a1, a2)
+	return GLUtCfg.type(a1) == GLUtCfg.type(a2)
+end
+
+function GLUt.vararg_capture(...)
+	local n = select('#', ...)
+	return n, { ... }
+end
+
+function GLUt.vararg_iter(...)
+	local n, t = GLUt.vararg_capture(...)
+	local i = 0
+	return function()
+		i = i + 1
+		if i <= n then return i, t[i], n end
+	end, t
+end
+
+function GLUt.str_split(str, separator)
+	str = str .. separator
+	separator = GLUt.str_escape_pattern(separator)
+
+	local substrs = {}
+	for substr in string.gmatch(str, "(.-)" .. separator) do
+		substrs[#substrs+1] = substr
+	end
+	return substrs
+end
+
+function GLUt.str_has_match(str, pattern)
+	return string.match(str, pattern) ~= nil
+end
+
+function GLUt.str_escape_pattern(str)
+	local escaped = str
+	for _, specChar in ipairs(patternSpecChars) do
+		local escapedSpec = '%' .. specChar
+		escaped = string.gsub(escaped, escapedSpec, (specChar == '%') and "%%" or '%' .. escapedSpec)
+	end
+	return escaped
+end
+
+function GLUt.str_double_substr(str, substr)
+	local safe = GLUt.str_escape_pattern(substr)
+	return string.gsub(str, safe, safe .. safe)
+end
+
+function GLUt.str_isempty(str)
+	return string.match(str, "^%s$") ~= nil
+end
+
+function GLUt.str_chariter(str)
+	local n = #str
+	local i = 0
+	return function()
+		i = i + 1
+		if i <= n then return GLUt.str_getchar(str, i) end
+	end
+end
+
+function GLUt.str_trim(str, pattern)
+	pattern = GLUt.default(pattern, "%s")
+	return GLUt.str_trimend(GLUt.str_trimstart(str, pattern), pattern)
+end
+
+function GLUt.str_trimstart(str, pattern)
+	pattern = GLUt.default(pattern, "%s")
+	return string.gsub(str, '^' .. pattern, "")
+end
+
+function GLUt.str_trimend(str, pattern)
+	pattern = GLUt.default(pattern, "%s")
+	return string.gsub(str, pattern .. '$', "")
+end
+
+function GLUt.str_getchar(str, i)
+	return string.sub(str, i, i)
+end
+
+local unidentified = -1
+function GLUt.str_runlua(source, fenv, chunkName)
+	chunkName = GLUt.default_exec(chunkName, function()
+		unidentified = unidentified + 1
+		return "loadstring#" .. tostring(unidentified) 
+	end)
+
+	local strFun, failReason = loadstring(source, chunkName)
+	if GLUtCfg.type(strFun) ~= "function" then
+		return false, "Loadstring : " .. chunkName .. " : Evaluation failed : " .. failReason
+	end
+
+	strFun = setfenv(strFun, fenv)
+
+	return pcall(function()
+		return GLUt.vararg_capture(strFun())
+	end)
+end
+
+function GLUt.str_runlua_unsafe(source, chunkName)
+	local strFun, failReason = loadstring(source, chunkName)
+	if GLUtCfg.type(strFun) ~= "function" then
+		return false, "Loadstring : " .. chunkName .. " : Evaluation failed : " .. failReason
+	end
+
+	return pcall(function()
+		return GLUt.vararg_capture()
+	end)
+end
+
+function GLUt.kvp_tostring(k, v)
+	return tostring(k) .. " = " .. tostring(v)
+end
+
+function GLUt.tbl_tryindex(tbl, ...)
+	local indexing = tbl
+	for _, k in GLUt.vararg_iter(...) do
+		if GLUtCfg.type(indexing) ~= "table" then
+			return false, indexing
+		end
+		indexing = indexing[tostring(k)]
+	end
+
+	return true, indexing
+end
+
+function GLUt.tbl_deepget(tbl, create_missing, ...)
+	local indexing = tbl
+	for i, k, n in GLUt.vararg_iter(...) do
+		k = tostring(k)
+
+		if indexing[k] == nil and create_missing then
+			indexing[k] = {}
+		end
+
+		indexing = indexing[k]
+		if GLUtCfg.type(indexing) ~= "table" and not (i == n) then
+			return false, indexing, k
+		end
+	end
+
+	return true, indexing
+end
+
+function GLUt.tbl_getkeys(tbl)
+	local keys = {}
+	for k, _ in pairs(tbl) do keys[#keys+1] = k end
+	return keys
+end
+
+function GLUt.tbl_clone(tbl, shallow)
+	shallow = GLUt.default(shallow, false)
+
+	local cloned = {}
+	for k, v in pairs(tbl) do
+		if GLUtCfg.type(v) == "table" and not shallow then
+			cloned[k] = GLUt.tbl_clone(v, shallow)
+		else
+			cloned[k] = v
+		end
+	end
+	return cloned
+end
+
+function GLUt.tbl_merge(tbl1, tbl2, priority)
+	priority = GLUt.default(priority, 1)
+	local secondPriority = priority == 2
+	local merged = {}
+	for k, v in pairs(tbl1) do
+		merged[k] = v
+	end
+	for k, v in pairs(tbl2) do
+		local existing = merged[k]
+		if GLUtCfg.type(existing) == "table" then
+			merged[k] = GLUt.tbl_merge(existing, v, priority)
+		elseif existing ~= nil and secondPriority then
+			merged[k] = v
+		elseif merged[k] == nil then
+			merged[k] = v
+		end
+	end
+	return merged
+end
+
+function GLUt.tbl_findsize(tbl)
+	local i = 0
+	for _, _ in pairs(tbl) do i = i + 1 end
+	return i
+end
+
+local function tbl_tostring(tblName, tbl, levels, level)
+	local str = tblName .. " = {"
+	local indent = string.rep("  ", level)
+	local n = GLUt.tbl_findsize(tbl)
+	local i = 0
+	for k, v in pairs(tbl) do
+		i = i + 1
+		str = str .. '\n' .. indent
+		if GLUtCfg.type(v) == "table" and levels > level then
+			str = str .. tbl_tostring(k, v, levels, level+1)
+		else
+			str = str .. GLUt.kvp_tostring(k, v)
+		end
+		if i < n then str = str .. ',' end
+	end
+	return str
+end
+
+function GLUt.tbl_tostring(tbl, levels, tblName)
+	GLUt.default(tblName, tostring(tbl))
+	return tbl_tostring(tblName, tbl, levels, 1)
+end
+
+function GLUt.tbl_any(tbl, f)
+	local anySucceed = nil
+	for k, v in pairs(tbl) do
+		anySucceed = GLUt.default(anySucceed, false) or f(k, v)
+		if anySucceed then break end
+	end
+	return anySucceed
+end
+
+function GLUt.tbl_all(tbl, f)
+	local allSucceed = nil
+	for k, v in pairs(tbl) do
+		allSucceed = GLUt.default(allSucceed, true) and f(k, v)
+		if not allSucceed then break end
+	end
+	return allSucceed
+end
+
+function GLUt.tbl_is_arr(tbl)
+	local isArr = true
+	for k, v in pairs(tbl) do
+		isArr = isArr and GLUtCfg.type(k) == "number"
+		if not isArr then break end
+	end
+	return isArr
+end
+
+local function tbl_arginfo(argType, name, index, expectedType)
+	local typeStr = GLUt.type_is(expectedType, "string") and (" <T:" .. expectedType .. ">") or ""
+	return argType .. " \"" .. name .. "\" (#" .. tostring(index) .. ")" .. typeStr 
+end
+
+local function tbl_argextract(fname, t, arglayout)
+	local index = arglayout[1]
+	local name = arglayout[2]
+	local expectedType = arglayout[3]
+	local canName = arglayout[4]
+	local default = arglayout.Default or arglayout.default
+	local vital = GLUt.default(arglayout.Vital or arglayout.vital, false)
+
+	local tVal = t[index]
+	if canName and tVal ~= nil then
+		if t[name] ~= nil then
+			return GLUtCfg.error(fname .. "@tblcall : " .. tbl_arginfo("Arg", name, index, expectedType) .. " passed both by name and index!")
+		end
+	elseif canName then
+		tVal = t[name]
+	end
+
+	if tVal == nil and default ~= nil then
+		tVal = default
+	end
+
+	if tVal == nil and expectedType == false then
+		return nil
+	elseif tVal == nil and not GLUt.str_has_match(expectedType, "%?") then
+		local argType = vital and "Vital Arg" or "Arg"
+		return GLUtCfg.error(fname .. "@tblcall : " .. tbl_arginfo(argType, name, index, expectedType) .. " not passed!")
+	end
+
+	if expectedType == false then return tVal end
+	if not GLUt.type_check(tVal, expectedType, name, fname, true) then return nil end
+	return tVal
+end
+
+function GLUt.fun_tblcallable(fname, f, ...)
+	local n, callingConvention = GLUt.vararg_capture(...)
+	return function(tbl)
+		for k, v in pairs(tbl) do
+			local isValid = false
+			for i=1, n do
+				if isValid then break end
+				local validArg = callingConvention[i]
+				isValid = (k == i) or (k == validArg[2])
+			end
+			if not isValid then
+				GLUtCfg.error("Received unexpected argument \"" .. tostring(k) .. "\" of type \"" .. GLUtCfg.type(v) .. "\"!")
+			end
+		end
+		local args = {}
+		for i=1, n do
+			local argLayout = callingConvention[i]
+			args[i] = tbl_argextract(fname, tbl, argLayout)
+		end
+		return f(unpack(args, 1, n))
+	end
+end
+
+return GLUt]]></ProtectedString>
+					<string name="ScriptGuid">{025F4BF9-9A85-4687-9292-4FCE12E05C7F}</string>
+					<BinaryString name="AttributesSerialize"></BinaryString>
+					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+					<bool name="DefinesCapabilities">false</bool>
+					<string name="Name">GLUt</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+			</Item>
+			<Item class="Folder" referent="RBX2BEC69E6A5514C479C0E9D59D27A3291">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
-					<string name="Name">NotMineThisIsSperosPleaseDontSueMe</string>
+					<string name="Name">NotMinePleaseDontSueMe</string>
 					<int64 name="SourceAssetId">-1</int64>
 					<BinaryString name="Tags"></BinaryString>
 				</Properties>
-				<Item class="ModuleScript" referent="RBX45DFE20549E54280A5FBCDA9775674A4">
+				<Item class="ModuleScript" referent="RBX3345A5D7874A4F5280DCD21055403028">
 					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<ProtectedString name="Source"><![CDATA[local PropAttributeTypes = require(script.Parent.PropAttributeTypes)
+return { 
+	GlobalVariables 	= { PropAttributeTypes.OPTIONAL_BOOL, 			nil },
+	OnProp 				= { PropAttributeTypes.OPTIONAL_BOOL, 			nil },
+	ScriptMove 			= { PropAttributeTypes.OPTIONAL_BOOL, 			nil },
+	Index 				= { PropAttributeTypes.OPTIONAL_INT, 			nil },
+	CanShatter 			= { PropAttributeTypes.OPTIONAL_BOOL, 			nil },
+	Tag 				= { PropAttributeTypes.STRING, 					nil },
+	TagOffset 			= { PropAttributeTypes.VECTOR3, 				nil },
+	StaticTag 			= { PropAttributeTypes.STRING, 					nil },
+	HasTopBarrier 		= { PropAttributeTypes.OPTIONAL_BOOL, 			nil },
+	Indestructible 		= { PropAttributeTypes.EXPRESSION, 				nil },
+	NoPropDamage 		= { PropAttributeTypes.EXPRESSION, 				nil },
+	IsSpawned 			= { PropAttributeTypes.EXPRESSION, 				nil },
+	Color0 				= { PropAttributeTypes.OPTIONAL_MISSION_COLOR, 	nil },
+	Color1 				= { PropAttributeTypes.OPTIONAL_MISSION_COLOR, 	nil },
+	Color2 				= { PropAttributeTypes.OPTIONAL_MISSION_COLOR, 	nil },
+	Color3 				= { PropAttributeTypes.OPTIONAL_MISSION_COLOR, 	nil },
+	Color4 				= { PropAttributeTypes.OPTIONAL_MISSION_COLOR, 	nil },
+	Color5 				= { PropAttributeTypes.OPTIONAL_MISSION_COLOR, 	nil },
+	Material0 			= { PropAttributeTypes.OPTIONAL_MATERIAL, 		nil },
+	Material1 			= { PropAttributeTypes.OPTIONAL_MATERIAL, 		nil },
+	Material2 			= { PropAttributeTypes.OPTIONAL_MATERIAL, 		nil },
+	Material3 			= { PropAttributeTypes.OPTIONAL_MATERIAL, 		nil },
+	Material4 			= { PropAttributeTypes.OPTIONAL_MATERIAL, 		nil },
+	Material5 			= { PropAttributeTypes.OPTIONAL_MATERIAL, 		nil },
+	Type 				= { PropAttributeTypes.STRING, 					nil },
+	AltProp 			= { PropAttributeTypes.STRING, 					nil },
+	AltPropModel 		= { PropAttributeTypes.STRING, 					nil },
+	FadeOutCondition 	= { PropAttributeTypes.STRING, 					nil },
+	CollisionGroup 		= { PropAttributeTypes.STRING, 					nil },
+	TagButton 			= { PropAttributeTypes.EXPRESSION, 				nil }
+}]]></ProtectedString>
+						<string name="ScriptGuid">{C82FF03D-384C-4A72-8725-96A2B84E5EC8}</string>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 						<bool name="DefinesCapabilities">false</bool>
-						<Content name="LinkedSource"><null></null></Content>
 						<string name="Name">GlobalAttributes</string>
-						<string name="ScriptGuid">{C82FF03D-384C-4A72-8725-96A2B84E5EC8}</string>
-						<ProtectedString name="Source"><![CDATA[local PropAttributeTypes = require(script.Parent.PropAttributeTypes)
-return { GlobalVariables = { PropAttributeTypes.OPTIONAL_BOOL, nil },
-OnProp = { PropAttributeTypes.OPTIONAL_BOOL, nil },
-ScriptMove = { PropAttributeTypes.OPTIONAL_BOOL, nil },
-Index = { PropAttributeTypes.OPTIONAL_INT, nil },
-CanShatter = { PropAttributeTypes.OPTIONAL_BOOL, nil },
-Tag = { PropAttributeTypes.STRING, nil },
-TagOffset = { PropAttributeTypes.VECTOR3, nil },
-StaticTag = { PropAttributeTypes.STRING, nil },
-HasTopBarrier = { PropAttributeTypes.OPTIONAL_BOOL, nil },
-Indestructible = { PropAttributeTypes.EXPRESSION, nil },
-IsSpawned = { PropAttributeTypes.EXPRESSION, nil },
-Color0 = { PropAttributeTypes.OPTIONAL_MISSION_COLOR, nil },
-Color1 = { PropAttributeTypes.OPTIONAL_MISSION_COLOR, nil },
-Color2 = { PropAttributeTypes.OPTIONAL_MISSION_COLOR, nil },
-Color3 = { PropAttributeTypes.OPTIONAL_MISSION_COLOR, nil },
-Color4 = { PropAttributeTypes.OPTIONAL_MISSION_COLOR, nil },
-Color5 = { PropAttributeTypes.OPTIONAL_MISSION_COLOR, nil },
-Material0 = { PropAttributeTypes.OPTIONAL_MATERIAL, nil },
-Material1 = { PropAttributeTypes.OPTIONAL_MATERIAL, nil },
-Material2 = { PropAttributeTypes.OPTIONAL_MATERIAL, nil },
-Material3 = { PropAttributeTypes.OPTIONAL_MATERIAL, nil },
-Material4 = { PropAttributeTypes.OPTIONAL_MATERIAL, nil },
-Material5 = { PropAttributeTypes.OPTIONAL_MATERIAL, nil },
-Type = { PropAttributeTypes.STRING, nil },
-AltPropModel = { PropAttributeTypes.STRING, nil },
-FadeOutCondition = { PropAttributeTypes.STRING, nil }}]]></ProtectedString>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBXB592EF315225464292E139A3F2EF9E1D">
+				<Item class="ModuleScript" referent="RBX42929C9EDA0B4D39B4074DB3214F4106">
 					<Properties>
-						<BinaryString name="AttributesSerialize"></BinaryString>
-						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-						<bool name="DefinesCapabilities">false</bool>
 						<Content name="LinkedSource"><null></null></Content>
-						<string name="Name">PropAttributeTypes</string>
-						<string name="ScriptGuid">{F6823BC2-884C-4658-9542-7A991DD1A476}</string>
 						<ProtectedString name="Source"><![CDATA[local PropAttributeTypes
 
 PropAttributeTypes = {
@@ -1201,18 +2301,18 @@ PropAttributeTypes = {
 }
 
 return PropAttributeTypes]]></ProtectedString>
+						<string name="ScriptGuid">{F6823BC2-884C-4658-9542-7A991DD1A476}</string>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">PropAttributeTypes</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-				<Item class="ModuleScript" referent="RBX7FCC47F8AF2146FFA4D4FA5FCBC02BAD">
+				<Item class="ModuleScript" referent="RBX5CC556976615402F8806CF2BEFBEEB30">
 					<Properties>
-						<BinaryString name="AttributesSerialize"></BinaryString>
-						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-						<bool name="DefinesCapabilities">false</bool>
 						<Content name="LinkedSource"><null></null></Content>
-						<string name="Name">AttributesMap</string>
-						<string name="ScriptGuid">{30866FB6-26E1-42EB-A645-104FE99D34D2}</string>
 						<ProtectedString name="Source"><![CDATA[-- NOTE: Do not edit this file manually. Use PropCompiler.py.
 AttributeType = require(script.Parent.PropAttributeTypes)
 return {
@@ -1251,6 +2351,7 @@ return {
 		MinimumCard = {AttributeType.STRING, ""},
 		LightLevel = {AttributeType.INT, 1},
 		Blocked = {AttributeType.EXPRESSION, ""},
+		LockdownReason = {AttributeType.EXPRESSION, nil},
 	},
 	CeilingAccessPoint = {
 		NetworkId = {AttributeType.NETWORK_ID, 1},
@@ -1263,6 +2364,10 @@ return {
 		ExaminedVariable = {AttributeType.STATE_VALUE, ""},
 		RewiredVariable = {AttributeType.STATE_VALUE, ""},
 	},
+	ClientExplosionEffect = {
+		Active = {AttributeType.EXPRESSION, ""},
+		Intensity = {AttributeType.NUMBER, 1},
+	},
 	ClimbablePipe = {
 	},
 	ClothingRack = {
@@ -1270,7 +2375,7 @@ return {
 		Disguise = {AttributeType.STRING, ""},
 		UsedVariable = {AttributeType.STATE_VALUE, ""},
 		ClientUsedVariable = {AttributeType.STATE_VALUE, ""},
-		SocialEngineeringLevel = {AttributeType.INT, 0},
+		SocialEngineeringLevel = {AttributeType.EXPRESSION, "0"},
 	},
 	CodeCardReader = {
 		PowerArea = {AttributeType.STATE_VALUE, ""},
@@ -1301,6 +2406,8 @@ return {
 		CodeSeed = {AttributeType.INT, 1},
 	},
 	CombatCuttableFence = {
+	},
+	CustomMissionLoadPoint = {
 	},
 	DecorativeDepositBox1 = {
 		IncludeSidePart = {AttributeType.BOOL, true},
@@ -1374,7 +2481,7 @@ return {
 		Disguise = {AttributeType.STRING, ""},
 		UsedVariable = {AttributeType.STATE_VALUE, ""},
 		ClientUsedVariable = {AttributeType.STATE_VALUE, ""},
-		SocialEngineeringLevel = {AttributeType.INT, 0},
+		SocialEngineeringLevel = {AttributeType.EXPRESSION, "0"},
 	},
 	DomeCamera = {
 		AngleMax = {AttributeType.STRING, "0"},
@@ -1391,6 +2498,32 @@ return {
 		DetectionSpeed = {AttributeType.NUMBER, 1},
 		LocationKey = {AttributeType.STRING, ""},
 		MapFloorOffset = {AttributeType.INT, 0},
+		WarpPoint = {AttributeType.STRING, nil},
+	},
+	DoorCombatSpawn = {
+		LockBack = {AttributeType.EXPRESSION, false},
+		LockFront = {AttributeType.EXPRESSION, false},
+		DoubleDoor = {AttributeType.EXPRESSION, false},
+		RemoteUnlock = {AttributeType.EXPRESSION, ""},
+		PathIgnoreUnlocked = {AttributeType.INT, 0},
+		PathIgnoreOpen = {AttributeType.INT, 0},
+		PathIgnoreBroken = {AttributeType.INT, 0},
+		PathRecover = {AttributeType.INT, 0},
+		BotCloseCondition = {AttributeType.EXPRESSION, ""},
+		Blocked = {AttributeType.EXPRESSION, ""},
+		NoKick = {AttributeType.EXPRESSION, false},
+		AutoLock = {AttributeType.EXPRESSION, false},
+		PathReq1 = {AttributeType.STRING, ""},
+		PathReq2 = {AttributeType.STRING, ""},
+		Access = {AttributeType.STRING, ""},
+		FailsafeUnlock = {AttributeType.EXPRESSION, ""},
+		DifficultLock = {AttributeType.EXPRESSION, false},
+		DifficultDrill = {AttributeType.EXPRESSION, false},
+		AlarmVariable = {AttributeType.STATE_VALUE, ""},
+		AlarmDisabled = {AttributeType.EXPRESSION, ""},
+		BotRelockCondition = {AttributeType.EXPRESSION, ""},
+		KeepClosed = {AttributeType.INT, 0},
+		KnockResponder = {AttributeType.STRING, ""},
 	},
 	DoorGlass = {
 		LockBack = {AttributeType.EXPRESSION, false},
@@ -1403,6 +2536,7 @@ return {
 		PathRecover = {AttributeType.INT, 0},
 		BotCloseCondition = {AttributeType.EXPRESSION, ""},
 		Blocked = {AttributeType.EXPRESSION, ""},
+		BlockedFromDirection = {AttributeType.EXPRESSION, nil},
 		NoKick = {AttributeType.EXPRESSION, false},
 		AutoLock = {AttributeType.EXPRESSION, false},
 		PathReq1 = {AttributeType.STRING, ""},
@@ -1414,7 +2548,10 @@ return {
 		AlarmDisabled = {AttributeType.EXPRESSION, ""},
 		BotRelockCondition = {AttributeType.EXPRESSION, ""},
 		KeepClosed = {AttributeType.INT, 0},
-		KnockResponder = {AttributeType.STRING, ""},
+		KnockResponder = {AttributeType.STRING, nil},
+		KnockChatResponse = {AttributeType.STRING, nil},
+		HoldDirection = {AttributeType.EXPRESSION, ""},
+		OpenVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	DoorMetal = {
 		LockBack = {AttributeType.EXPRESSION, false},
@@ -1427,7 +2564,10 @@ return {
 		PathRecover = {AttributeType.INT, 0},
 		BotCloseCondition = {AttributeType.EXPRESSION, ""},
 		Blocked = {AttributeType.EXPRESSION, ""},
+		BlockedFromDirection = {AttributeType.EXPRESSION, nil},
 		NoKick = {AttributeType.EXPRESSION, false},
+		EasyKick = {AttributeType.BOOL, nil},
+		Jammed = {AttributeType.BOOL, nil},
 		AutoLock = {AttributeType.EXPRESSION, false},
 		PathReq1 = {AttributeType.STRING, ""},
 		PathReq2 = {AttributeType.STRING, ""},
@@ -1439,7 +2579,10 @@ return {
 		AlarmDisabled = {AttributeType.EXPRESSION, ""},
 		BotRelockCondition = {AttributeType.EXPRESSION, ""},
 		KeepClosed = {AttributeType.INT, 0},
-		KnockResponder = {AttributeType.STRING, ""},
+		KnockResponder = {AttributeType.STRING, nil},
+		KnockChatResponse = {AttributeType.STRING, nil},
+		HoldDirection = {AttributeType.EXPRESSION, ""},
+		OpenVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	DoorMetalElectronic = {
 		LockBack = {AttributeType.EXPRESSION, false},
@@ -1452,6 +2595,7 @@ return {
 		PathRecover = {AttributeType.INT, 0},
 		BotCloseCondition = {AttributeType.EXPRESSION, ""},
 		Blocked = {AttributeType.EXPRESSION, ""},
+		BlockedFromDirection = {AttributeType.EXPRESSION, nil},
 		NoKick = {AttributeType.EXPRESSION, false},
 		AutoLock = {AttributeType.EXPRESSION, false},
 		PathReq1 = {AttributeType.STRING, ""},
@@ -1464,7 +2608,10 @@ return {
 		AlarmDisabled = {AttributeType.EXPRESSION, ""},
 		BotRelockCondition = {AttributeType.EXPRESSION, ""},
 		KeepClosed = {AttributeType.INT, 0},
-		KnockResponder = {AttributeType.STRING, ""},
+		KnockResponder = {AttributeType.STRING, nil},
+		KnockChatResponse = {AttributeType.STRING, nil},
+		HoldDirection = {AttributeType.EXPRESSION, ""},
+		OpenVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	DoorPushLeft = {
 		LockBack = {AttributeType.EXPRESSION, false},
@@ -1477,6 +2624,7 @@ return {
 		PathRecover = {AttributeType.INT, 0},
 		BotCloseCondition = {AttributeType.EXPRESSION, ""},
 		Blocked = {AttributeType.EXPRESSION, ""},
+		BlockedFromDirection = {AttributeType.EXPRESSION, nil},
 		NoKick = {AttributeType.EXPRESSION, false},
 		AutoLock = {AttributeType.EXPRESSION, false},
 		PathReq1 = {AttributeType.STRING, ""},
@@ -1489,7 +2637,9 @@ return {
 		AlarmDisabled = {AttributeType.EXPRESSION, ""},
 		BotRelockCondition = {AttributeType.EXPRESSION, ""},
 		KeepClosed = {AttributeType.INT, 0},
-		KnockResponder = {AttributeType.STRING, ""},
+		KnockResponder = {AttributeType.STRING, nil},
+		KnockChatResponse = {AttributeType.STRING, nil},
+		HoldDirection = {AttributeType.EXPRESSION, ""},
 	},
 	DoorWood = {
 		LockBack = {AttributeType.EXPRESSION, false},
@@ -1502,6 +2652,7 @@ return {
 		PathRecover = {AttributeType.INT, 0},
 		BotCloseCondition = {AttributeType.EXPRESSION, ""},
 		Blocked = {AttributeType.EXPRESSION, ""},
+		BlockedFromDirection = {AttributeType.EXPRESSION, nil},
 		NoKick = {AttributeType.EXPRESSION, false},
 		AutoLock = {AttributeType.EXPRESSION, false},
 		PathReq1 = {AttributeType.STRING, ""},
@@ -1513,7 +2664,10 @@ return {
 		AlarmDisabled = {AttributeType.EXPRESSION, ""},
 		BotRelockCondition = {AttributeType.EXPRESSION, ""},
 		KeepClosed = {AttributeType.INT, 0},
-		KnockResponder = {AttributeType.STRING, ""},
+		KnockResponder = {AttributeType.STRING, nil},
+		KnockChatResponse = {AttributeType.STRING, nil},
+		HoldDirection = {AttributeType.EXPRESSION, ""},
+		OpenVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	DoorWoodElectronic = {
 		LockBack = {AttributeType.EXPRESSION, false},
@@ -1526,6 +2680,7 @@ return {
 		PathRecover = {AttributeType.INT, 0},
 		BotCloseCondition = {AttributeType.EXPRESSION, ""},
 		Blocked = {AttributeType.EXPRESSION, ""},
+		BlockedFromDirection = {AttributeType.EXPRESSION, nil},
 		NoKick = {AttributeType.EXPRESSION, false},
 		AutoLock = {AttributeType.EXPRESSION, false},
 		PathReq1 = {AttributeType.STRING, ""},
@@ -1537,7 +2692,10 @@ return {
 		AlarmDisabled = {AttributeType.EXPRESSION, ""},
 		BotRelockCondition = {AttributeType.EXPRESSION, ""},
 		KeepClosed = {AttributeType.INT, 0},
-		KnockResponder = {AttributeType.STRING, ""},
+		KnockResponder = {AttributeType.STRING, nil},
+		KnockChatResponse = {AttributeType.STRING, nil},
+		HoldDirection = {AttributeType.EXPRESSION, ""},
+		OpenVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	DoubleVaultDoor = {
 		OpenCondition = {AttributeType.EXPRESSION, ""},
@@ -1556,13 +2714,15 @@ return {
 		DisabledInCombat = {AttributeType.BOOL, false},
 	},
 	EventPumpkin = {
-	},
-	ExplosionSource = {
+		CounterVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	FallingLadder = {
 		LiftScale = {AttributeType.NUMBER, 0.8},
 		CanShoot = {AttributeType.BOOL, false},
 		LoweredVariable = {AttributeType.STATE_VALUE, ""},
+	},
+	Flare = {
+		PlacedVariable = {AttributeType.STATE_VALUE, "FlarePlaced"},
 	},
 	FloorAccessCover = {
 		CanOpen = {AttributeType.EXPRESSION, ""},
@@ -1570,6 +2730,8 @@ return {
 	},
 	Flowerpot = {
 		Seed = {AttributeType.INT, 0},
+	},
+	FlyingHelicopter = {
 	},
 	FreestandingSafe = {
 		Seed = {AttributeType.INT, 1},
@@ -1601,9 +2763,9 @@ return {
 		PasswordUnlockedVariable = {AttributeType.STATE_VALUE, ""},
 		NetworkNameTag = {AttributeType.STRING, ""},
 		DesktopBackground = {AttributeType.STRING, ""},
-		PasswordDifficulty = {AttributeType.EXPRESSION, 0},
+		PasswordDifficulty = {AttributeType.EXPRESSION, "0"},
 		OldMonitor = {AttributeType.BOOL, false},
-		PhysicalAccessBlocked = {AttributeType.EXPRESSION, 0},
+		PhysicalAccessBlocked = {AttributeType.EXPRESSION, "0"},
 	},
 	HeavySecurityDoor = {
 		ServerExplosiveFullDamageVariable = {AttributeType.STATE_VALUE, ""},
@@ -1615,9 +2777,10 @@ return {
 	Helicopter = {
 		ActiveCondition = {AttributeType.EXPRESSION, ""},
 		StopAttemptDialogue = {AttributeType.STRING, ""},
-		StartupTime = {AttributeType.INT, 60},
+		StartupTime = {AttributeType.EXPRESSION, "60"},
 		ProgressVariable = {AttributeType.STATE_VALUE, ""},
 		PoliceShutdownVariable = {AttributeType.STATE_VALUE, ""},
+		QuadBlade = {AttributeType.BOOL, false},
 	},
 	HiddenWallSafe = {
 		PromptVisible = {AttributeType.EXPRESSION, ""},
@@ -1638,6 +2801,9 @@ return {
 		CoverMaterial = {AttributeType.STRING, ""},
 		SafeTag = {AttributeType.STRING, ""},
 		HiddenShuffleId = {AttributeType.STRING, ""},
+		Reinforced = {AttributeType.EXPRESSION, ""},
+		ReinforcedColor0 = {AttributeType.OPTIONAL_MISSION_COLOR, Color3.new(1, 1, 1)},
+		ReinforcedColor1 = {AttributeType.OPTIONAL_MISSION_COLOR, Color3.new(1, 1, 1)},
 	},
 	IndustrialShelvesSmall = {
 		BoxSeed = {AttributeType.INT, 0},
@@ -1645,6 +2811,8 @@ return {
 		BoxColor = {AttributeType.OPTIONAL_MISSION_COLOR, Color3.new(0, 0, 0)},
 	},
 	InteractionBlocker = {
+		ServerActive = {AttributeType.EXPRESSION, "1"},
+		ClientActive = {AttributeType.EXPRESSION, nil},
 	},
 	IntroCam = {
 	},
@@ -1662,6 +2830,18 @@ return {
 		OffsetX = {AttributeType.NUMBER, 0},
 	},
 	Laptop = {
+		DesktopBackground = {AttributeType.STRING, ""},
+		PasswordUnlockedVariable = {AttributeType.STATE_VALUE, ""},
+		DesktopTransparency = {AttributeType.NUMBER, 0},
+		NetworkId = {AttributeType.NETWORK_ID, 1},
+		NetworkLink = {AttributeType.NETWORK_ID_STRING, ""},
+		PasswordLockedCondition = {AttributeType.EXPRESSION, ""},
+		PasswordDifficulty = {AttributeType.EXPRESSION, "0"},
+		ScreenText = {AttributeType.EXPRESSION, ""},
+		NetworkNameTag = {AttributeType.STRING, ""},
+		ManualPasswordVariable = {AttributeType.STATE_VALUE, ""},
+		ManualPasswordList = {AttributeType.STRING, ""},
+		ManualPasswordRevealed = {AttributeType.EXPRESSION, ""},
 	},
 	LaptopOld = {
 		DesktopBackground = {AttributeType.STRING, ""},
@@ -1670,25 +2850,30 @@ return {
 		NetworkId = {AttributeType.NETWORK_ID, 1},
 		NetworkLink = {AttributeType.NETWORK_ID_STRING, ""},
 		PasswordLockedCondition = {AttributeType.EXPRESSION, ""},
-		PasswordDifficulty = {AttributeType.EXPRESSION, 0},
+		PasswordDifficulty = {AttributeType.EXPRESSION, "0"},
 		ScreenText = {AttributeType.EXPRESSION, ""},
 		NetworkNameTag = {AttributeType.STRING, ""},
+		ManualPasswordVariable = {AttributeType.STATE_VALUE, ""},
+		ManualPasswordList = {AttributeType.STRING, ""},
+		ManualPasswordRevealed = {AttributeType.EXPRESSION, ""},
 	},
 	LaundryBasket = {
 		Active = {AttributeType.EXPRESSION, ""},
 		Disguise = {AttributeType.STRING, ""},
 		UsedVariable = {AttributeType.STATE_VALUE, ""},
 		ClientUsedVariable = {AttributeType.STATE_VALUE, ""},
-		SocialEngineeringLevel = {AttributeType.INT, 0},
+		SocialEngineeringLevel = {AttributeType.EXPRESSION, "0"},
 	},
 	LeverageMove = {
-		MoveDist = {AttributeType.EXPRESSION, 0},
+		MoveDist = {AttributeType.EXPRESSION, "0"},
 		Prop = {AttributeType.STRING, ""},
 		MovedToEndVariable = {AttributeType.STATE_VALUE, ""},
+		MovedFromStartVariable = {AttributeType.STATE_VALUE, ""},
 		VisibleCondition = {AttributeType.EXPRESSION, "1"},
 		Heavy = {AttributeType.BOOL, true},
 	},
 	LongCoffeeTable = {
+		Seed = {AttributeType.INT, 0},
 	},
 	LootCash = {
 		ItemTagString = {AttributeType.STRING, ""},
@@ -1723,12 +2908,23 @@ return {
 		TriggerInvestigation = {AttributeType.EXPRESSION, true},
 	},
 	NoDropZone = {
+		BlockPickups = {AttributeType.BOOL, false},
 	},
 	OldMonitor = {
 		PowerArea = {AttributeType.STATE_VALUE, ""},
 		ScreenText = {AttributeType.EXPRESSION, ""},
 		DesktopTransparency = {AttributeType.NUMBER, 0},
 		DesktopBackground = {AttributeType.STRING, ""},
+	},
+	OneWayTrespass = {
+		Condition = {AttributeType.EXPRESSION, ""},
+		EnforceClass = {AttributeType.STRING, ""},
+		MajorTrespass = {AttributeType.BOOL, false},
+		SetMetaTagsOnWarp = {AttributeType.STRING, nil},
+		ConfrontationDialogue = {AttributeType.STRING, nil},
+	},
+	PortableMetalDetector = {
+		PowerLevel = {AttributeType.EXPRESSION, ""},
 	},
 	PowerBoxLarge = {
 		TagWhileActive = {AttributeType.BOOL, false},
@@ -1737,6 +2933,20 @@ return {
 		CombatDisableTarget = {AttributeType.EXPRESSION, ""},
 		NoPropDamage = {AttributeType.EXPRESSION, ""},
 		AllowRestoring = {AttributeType.EXPRESSION, "1"},
+		InvestigatorTag = {AttributeType.STRING, nil},
+	},
+	PowerBoxPortable = {
+		TagWhileActive = {AttributeType.BOOL, false},
+		AllowDisabling = {AttributeType.EXPRESSION, "1"},
+		PowerArea = {AttributeType.STATE_VALUE, ""},
+		CombatDisableTarget = {AttributeType.EXPRESSION, ""},
+		NoPropDamage = {AttributeType.EXPRESSION, ""},
+		AllowRestoring = {AttributeType.EXPRESSION, "1"},
+		Locked = {AttributeType.BOOL, false},
+		ObjectName = {AttributeType.STRING, ""},
+		PowerAreaParent = {AttributeType.STATE_VALUE, ""},
+		ManualInvestigationBot = {AttributeType.EXPRESSION, ""},
+		InvestigatorTag = {AttributeType.STRING, nil},
 	},
 	PowerBoxSmall = {
 		TagWhileActive = {AttributeType.BOOL, false},
@@ -1749,6 +2959,7 @@ return {
 		ObjectName = {AttributeType.STRING, ""},
 		PowerAreaParent = {AttributeType.STATE_VALUE, ""},
 		ManualInvestigationBot = {AttributeType.EXPRESSION, ""},
+		InvestigatorTag = {AttributeType.STRING, nil},
 	},
 	PropBase = {
 	},
@@ -1790,8 +3001,14 @@ return {
 		DetectionSpeed = {AttributeType.NUMBER, 1},
 		LocationKey = {AttributeType.STRING, ""},
 		MapFloorOffset = {AttributeType.INT, 0},
+		CycleTime = {AttributeType.NUMBER, 0},
+		WarpPoint = {AttributeType.STRING, nil},
 	},
 	ServerRack = {
+		CanPickup = {AttributeType.BOOL, false},
+		ItemTagString = {AttributeType.STRING, ""},
+		PickupVariable = {AttributeType.STATE_VALUE, ""},
+		PowerArea = {AttributeType.STRING, ""},
 	},
 	ServerRackWideTerminal = {
 		NetworkId = {AttributeType.NETWORK_ID, 1},
@@ -1827,7 +3044,7 @@ return {
 	ThermiteBurn = {
 		ProgressVariable = {AttributeType.STATE_VALUE, ""},
 		StartedVariable = {AttributeType.STATE_VALUE, ""},
-		BurnTime = {AttributeType.INT, 90},
+		BurnTime = {AttributeType.EXPRESSION, "90"},
 	},
 	ThinBush = {
 	},
@@ -1862,16 +3079,32 @@ return {
 		Variable = {AttributeType.STATE_VALUE, ""},
 		HighlightZone = {AttributeType.BOOL, false},
 		UpdateFrequency = {AttributeType.NUMBER, 1},
+		ClearOnInactive = {AttributeType.BOOL, false},
+		Disguise = {AttributeType.STRING, nil},
+		SetMetaTags = {AttributeType.STRING, nil},
 	},
 	TutorialText = {
-	},
+		HorizontalOffset = {AttributeType.NUMBER, 0.5},
+		VerticalOffset = {AttributeType.NUMBER, 0.5},
+		Text = {AttributeType.STRING, ""},
+		Visible = {AttributeType.EXPRESSION, "1"},
+"	"},
 	Van = {
 		IsOpen = {AttributeType.EXPRESSION, ""},
-		DoorAngleR = {AttributeType.EXPRESSION, 0},
-		DoorAngleL = {AttributeType.EXPRESSION, 0},
+		DoorAngleR = {AttributeType.EXPRESSION, "0"},
+		DoorAngleL = {AttributeType.EXPRESSION, "0"},
 	},
 	VaultOpenRight = {
 		OpenCondition = {AttributeType.EXPRESSION, ""},
+	},
+	WallMountedCoreDrill = {
+		TriggerTag = {AttributeType.STRING, ""},
+		AssembleVariable = {AttributeType.STATE_VALUE, ""},
+		FinishedVariable = {AttributeType.STATE_VALUE, ""},
+		RemovedVariable = {AttributeType.STATE_VALUE, ""},
+		MovePrompt = {AttributeType.BOOL, false},
+		PreAssembled = {AttributeType.BOOL, false},
+		DrillTime = {AttributeType.EXPRESSION, "60"},
 	},
 	WallSafe = {
 		Seed = {AttributeType.INT, 1},
@@ -1903,6 +3136,7 @@ return {
 	WoodChair = {
 	},
 	WoodShootingTarget = {
+		TargetDownVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	WoodTargetWithSensor = {
 	},
@@ -1913,6 +3147,7 @@ return {
 		Dialogue = {AttributeType.STRING, ""},
 		ToolRequired = {AttributeType.STRING, ""},
 		AccessVariable = {AttributeType.STATE_VALUE, ""},
+		TriggeredVariable = {AttributeType.STATE_VALUE, ""},
 		SocialEngineeringLevel = {AttributeType.INT, 0},
 		BotServerTag = {AttributeType.STRING, ""},
 		AccessOnceVariable = {AttributeType.STATE_VALUE, ""},
@@ -1921,6 +3156,15 @@ return {
 	AlarmButton = {
 	},
 	ArmoredTruck = {
+	},
+	BagSpawn = {
+		ItemTagString = {AttributeType.STATE_VALUE, ""},
+		BagColor = {AttributeType.OPTIONAL_MISSION_COLOR, Color3.new(0, 0, 0)},
+		BagType = {AttributeType.STRING, "Backpack"},
+		ModelHidden = {AttributeType.BOOL, false},
+		InitialPickupTime = {AttributeType.NUMBER, 0.5},
+		ItemRemovedVariable = {AttributeType.STRING, ""},
+		Contents = {AttributeType.STRING, ""},
 	},
 	BasicPart = {
 		Material = {AttributeType.STRING, "SmoothPlastic"},
@@ -1932,14 +3176,46 @@ return {
 		BotServerTag = {AttributeType.STRING, ""},
 		RewireEnabled = {AttributeType.EXPRESSION, ""},
 	},
+	BotConversationPoint = {
+		BotTag0 = {AttributeType.STRING, ""},
+		BotTag1 = {AttributeType.STRING, ""},
+		TriggerRange = {AttributeType.INT, 40},
+		CanStartConversation = {AttributeType.EXPRESSION, ""},
+		Dialogue0 = {AttributeType.STRING, nil},
+		Dialogue0Speaker = {AttributeType.INT, nil},
+		Dialogue0Time = {AttributeType.NUMBER, nil},
+		Dialogue0Variable = {AttributeType.STATE_VALUE, nil},
+		Dialogue1 = {AttributeType.STRING, nil},
+		Dialogue1Speaker = {AttributeType.INT, nil},
+		Dialogue1Time = {AttributeType.NUMBER, nil},
+		Dialogue1Variable = {AttributeType.STATE_VALUE, nil},
+		Dialogue2 = {AttributeType.STRING, nil},
+		Dialogue2Speaker = {AttributeType.INT, nil},
+		Dialogue2Time = {AttributeType.NUMBER, nil},
+		Dialogue2Variable = {AttributeType.STATE_VALUE, nil},
+		Dialogue3 = {AttributeType.STRING, nil},
+		Dialogue3Speaker = {AttributeType.INT, nil},
+		Dialogue3Time = {AttributeType.NUMBER, nil},
+		Dialogue3Variable = {AttributeType.STATE_VALUE, nil},
+		Dialogue4 = {AttributeType.STRING, nil},
+		Dialogue4Speaker = {AttributeType.INT, nil},
+		Dialogue4Time = {AttributeType.NUMBER, nil},
+		Dialogue4Variable = {AttributeType.STATE_VALUE, nil},
+		Dialogue5 = {AttributeType.STRING, nil},
+		Dialogue5Speaker = {AttributeType.INT, nil},
+		Dialogue5Time = {AttributeType.NUMBER, nil},
+		Dialogue5Variable = {AttributeType.STATE_VALUE, nil},
+	},
 	Cabinet = {
+		BodyHiddenVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	ConditionalHighJumpRequired = {
-		Climber3Condition = {AttributeType.EXPRESSION, 1},
+		Climber3Condition = {AttributeType.EXPRESSION, "1"},
 		Color = {AttributeType.OPTIONAL_MISSION_COLOR, Color3.new(0, 0, 0)},
 		Material = {AttributeType.STRING, "Plastic"},
 	},
-	CustomMissionLoadPoint = {
+	ControlPanel = {
+		UsedVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	CustomReportPoint = {
 		Hidden = {AttributeType.BOOL, false},
@@ -1959,6 +3235,9 @@ return {
 	DynamicNode = {
 		Id = {AttributeType.STRING, ""},
 		TakedownImmunity = {AttributeType.BOOL, false},
+		Anim = {AttributeType.STRING, nil},
+		CaptureBot = {AttributeType.EXPRESSION, nil},
+		CustomBehavior = {AttributeType.STRING, nil},
 	},
 	ElevatorFunctional = {
 		OpenCondition = {AttributeType.EXPRESSION, ""},
@@ -1972,6 +3251,7 @@ return {
 		WarpPointId = {AttributeType.STRING, ""},
 	},
 	EscapeZone = {
+		Active = {AttributeType.EXPRESSION, ""},
 	},
 	FlowStart = {
 	},
@@ -1998,6 +3278,7 @@ return {
 		OmniDir = {AttributeType.BOOL, false},
 	},
 	GuardCombatNode = {
+		BotTag = {AttributeType.STRING, nil},
 	},
 	init = {
 	},
@@ -2018,6 +3299,8 @@ return {
 	IntercomPanel = {
 		TriggerVariable = {AttributeType.STATE_VALUE, ""},
 		PowerArea = {AttributeType.STATE_VALUE, ""},
+		Subtitle = {AttributeType.STRING, ""},
+		Title = {AttributeType.STRING, ""},
 	},
 	InvestigationStandTrigger = {
 		ActiveCondition = {AttributeType.EXPRESSION, ""},
@@ -2038,6 +3321,11 @@ return {
 		ServerVisible = {AttributeType.EXPRESSION, ""},
 		TitleKey = {AttributeType.STRING, ""},
 		ClientVisible = {AttributeType.EXPRESSION, ""},
+		ClientEnabled = {AttributeType.EXPRESSION, ""},
+		MissingToolSubtitle = {AttributeType.STRING, ""},
+		MissingToolTitle = {AttributeType.STRING, ""},
+		Item = {AttributeType.STRING, ""},
+		SetMetaTags = {AttributeType.STRING, nil},
 	},
 	ItemSpawn = {
 		Item = {AttributeType.STRING, ""},
@@ -2049,6 +3337,7 @@ return {
 		KeyItem = {AttributeType.BOOL, false},
 		ItemRemovedVariable = {AttributeType.STATE_VALUE, ""},
 		IsSpawned = {AttributeType.EXPRESSION, ""},
+		HasAmmo = {AttributeType.BOOL, false},
 	},
 	KillZone = {
 		BotServerTag = {AttributeType.STRING, ""},
@@ -2065,10 +3354,12 @@ return {
 		HoldDoor = {AttributeType.BOOL, false},
 		ReverseDoor = {AttributeType.BOOL, false},
 		CoverTag = {AttributeType.STRING, ""},
-		HoldPriority = {AttributeType.EXPRESSION, 0},
+		HoldPriority = {AttributeType.EXPRESSION, "0"},
 		LeanRight = {AttributeType.BOOL, false},
 	},
 	LeaveMissionPoint = {
+	},
+	LootCountZone = {
 	},
 	LootGeneric = {
 		ItemTagString = {AttributeType.STATE_VALUE, ""},
@@ -2086,10 +3377,17 @@ return {
 		Active = {AttributeType.EXPRESSION, ""},
 		OpenForAll = {AttributeType.EXPRESSION, ""},
 		HighlightZone = {AttributeType.BOOL, true},
+		AltItem0 = {AttributeType.STRING, nil},
+		AltItem1 = {AttributeType.STRING, nil},
+		AltItem2 = {AttributeType.STRING, nil},
+		AltItem0Variable = {AttributeType.STATE_VALUE, nil},
+		AltItem1Variable = {AttributeType.STATE_VALUE, nil},
+		AltItem2Variable = {AttributeType.STATE_VALUE, nil},
 	},
 	MissionExit = {
 	},
 	PathfindingBlocker = {
+		BotCollisions = {AttributeType.BOOL, nil},
 	},
 	PlaceholderProp = {
 	},
@@ -2101,11 +3399,13 @@ return {
 		PowerArea = {AttributeType.STRING, ""},
 		DetectSabotage = {AttributeType.BOOL, true},
 		DamagedVariable = {AttributeType.STATE_VALUE, ""},
+		Health = {AttributeType.INT, 0},
 	},
 	PowerRoomProp2 = {
 		PowerArea = {AttributeType.STRING, ""},
 		DetectSabotage = {AttributeType.BOOL, true},
 		DamagedVariable = {AttributeType.STATE_VALUE, ""},
+		Health = {AttributeType.INT, 0},
 	},
 	RandomBotSpawnLocation = {
 		StartingSpawnOnly = {AttributeType.BOOL, false},
@@ -2118,7 +3418,40 @@ return {
 		ObjectName = {AttributeType.STRING, ""},
 		DifficultRewire = {AttributeType.BOOL, false},
 	},
+	SawCutPoint = {
+	},
+	ScriptedExplosion = {
+		BlastRadius = {AttributeType.NUMBER, 20},
+		Active = {AttributeType.EXPRESSION, ""},
+	},
+	SearchableClipboard = {
+		TitleKey = {AttributeType.STRING, ""},
+		SubtitleKey = {AttributeType.STRING, ""},
+		ServerVisible = {AttributeType.EXPRESSION, ""},
+		ClientVisible = {AttributeType.EXPRESSION, ""},
+		ServerEnabled = {AttributeType.EXPRESSION, ""},
+		HoldTime = {AttributeType.NUMBER, 2},
+		HoldAlert = {AttributeType.EXPRESSION, ""},
+		DisabledTitle = {AttributeType.EXPRESSION, ""},
+		DisabledSubtitle = {AttributeType.EXPRESSION, ""},
+		Notification = {AttributeType.STRING, ""},
+		SetVariable = {AttributeType.STATE_VALUE, ""},
+		SetClientVariable = {AttributeType.STATE_VALUE, ""},
+	},
 	SearchableFile = {
+		TitleKey = {AttributeType.STRING, ""},
+		SubtitleKey = {AttributeType.STRING, ""},
+		ServerVisible = {AttributeType.EXPRESSION, ""},
+		ClientVisible = {AttributeType.EXPRESSION, ""},
+		ServerEnabled = {AttributeType.EXPRESSION, ""},
+		HoldTime = {AttributeType.NUMBER, 2},
+		HoldAlert = {AttributeType.EXPRESSION, ""},
+		DisabledTitle = {AttributeType.EXPRESSION, ""},
+		DisabledSubtitle = {AttributeType.EXPRESSION, ""},
+		Notification = {AttributeType.STRING, ""},
+		SetVariable = {AttributeType.STATE_VALUE, ""},
+	},
+	SearchablePaperTray = {
 		TitleKey = {AttributeType.STRING, ""},
 		SubtitleKey = {AttributeType.STRING, ""},
 		ServerVisible = {AttributeType.EXPRESSION, ""},
@@ -2144,7 +3477,7 @@ return {
 		Active = {AttributeType.EXPRESSION, ""},
 		SoundLength = {AttributeType.NUMBER, 0},
 		RollOffMaxDistance = {AttributeType.NUMBER, 10000},
-		RollOffMinDistance = {AttributeType.NUMBER, 0},
+		RollOffMinDistance = {AttributeType.NUMBER, 10},
 	},
 	SpawnLocation = {
 	},
@@ -2156,7 +3489,7 @@ return {
 		HoldDoor = {AttributeType.BOOL, false},
 		ReverseDoor = {AttributeType.BOOL, false},
 		CoverTag = {AttributeType.STRING, ""},
-		HoldPriority = {AttributeType.EXPRESSION, 0},
+		HoldPriority = {AttributeType.EXPRESSION, "0"},
 	},
 	StateScriptPart = {
 	},
@@ -2182,6 +3515,9 @@ return {
 		RagdollCountVariable = {AttributeType.STATE_VALUE, ""},
 		HostageCountVariable = {AttributeType.STATE_VALUE, ""},
 		DeathCountVariable = {AttributeType.STATE_VALUE, ""},
+		WalkingCountVariable = {AttributeType.STATE_VALUE, ""},
+		ConciousCountVariable = {AttributeType.STATE_VALUE, ""},
+		CountVariable = {AttributeType.STATE_VALUE, ""},
 		BotServerTag = {AttributeType.STRING, ""},
 		Active = {AttributeType.EXPRESSION, ""},
 	},
@@ -2232,6 +3568,12 @@ return {
 		HoldTime = {AttributeType.NUMBER, 1},
 		SubtitleKey = {AttributeType.STRING, ""},
 	},
+	BotItemSpawn = {
+		Condition = {AttributeType.EXPRESSION, ""},
+		Item = {AttributeType.STRING, ""},
+		ItemTag = {AttributeType.STRING, ""},
+		BotServerTag = {AttributeType.STRING, ""},
+	},
 	BotStateTracker = {
 		IncapacitationCountVariable = {AttributeType.STATE_VALUE, ""},
 		HostageCountVariable = {AttributeType.STATE_VALUE, ""},
@@ -2251,7 +3593,7 @@ return {
 		AllowDespawn = {AttributeType.BOOL, false},
 		SpawnsBlockedVariable = {AttributeType.STATE_VALUE, ""},
 		Active = {AttributeType.EXPRESSION, ""},
-		SpawnCap = {AttributeType.EXPRESSION, 6},
+		SpawnCap = {AttributeType.EXPRESSION, "6"},
 		EnemyWeaponsWave1 = {AttributeType.EXPRESSION, nil},
 		EnemyWeaponsWave2 = {AttributeType.EXPRESSION, nil},
 		EnemyWeaponsWave3 = {AttributeType.EXPRESSION, nil},
@@ -2274,6 +3616,7 @@ return {
 		BotServerTag = {AttributeType.STRING, ""},
 		Visible = {AttributeType.EXPRESSION, ""},
 		SocialEngineeringLevel = {AttributeType.INT, 0},
+		IntimidationLevel = {AttributeType.INT, 0},
 		Icon = {AttributeType.STRING, "ChatGeneric"},
 		Text = {AttributeType.STRING, ""},
 		Dialogue = {AttributeType.STRING, ""},
@@ -2300,6 +3643,9 @@ return {
 		SpawnTags = {AttributeType.STRING, ""},
 		Active = {AttributeType.EXPRESSION, "Mission_AlarmRaised"},
 		SpawnCap = {AttributeType.EXPRESSION, "8"},
+		EnemyType = {AttributeType.STRING, "Swat"},
+		EnemyWeapons = {AttributeType.STRING, "F57|S97|480 MCS"},
+		ServerTag = {AttributeType.STRING, nil},
 	},
 	CustomBehaviorCondition = {
 		Priority = {AttributeType.STRING, "Custom1"},
@@ -2329,11 +3675,12 @@ return {
 		DeployedOnceVariable = {AttributeType.STATE_VALUE, ""},
 		ScriptedBehavior = {AttributeType.STRING, ""},
 		DisableReason = {AttributeType.EXPRESSION, ""},
-		IconId = {AttributeType.EXPRESSION, 0},
+		IconId = {AttributeType.EXPRESSION, "0"},
+		IsDeployedVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	DelayedStateUpdate = {
 		Watch = {AttributeType.EXPRESSION, ""},
-		DelayTime = {AttributeType.EXPRESSION, 5},
+		DelayTime = {AttributeType.EXPRESSION, "5"},
 		SetVariable = {AttributeType.STATE_VALUE, ""},
 		OnlyMatch = {AttributeType.BOOL, false},
 	},
@@ -2378,7 +3725,7 @@ return {
 		OutputVariable = {AttributeType.STATE_VALUE, ""},
 		Value0 = {AttributeType.EXPRESSION, ""},
 		Value1 = {AttributeType.EXPRESSION, ""},
-		Delta = {AttributeType.EXPRESSION, 0.5},
+		Delta = {AttributeType.EXPRESSION, "0.5"},
 		AlwaysUpdate = {AttributeType.EXPRESSION, false},
 		UpdateClock = {AttributeType.EXPRESSION, "0"},
 	},
@@ -2387,7 +3734,14 @@ return {
 		Timeout = {AttributeType.NUMBER, 1},
 		CompleteVariable = {AttributeType.STATE_VALUE, ""},
 	},
+	MissionFailedTrigger = {
+		Condition = {AttributeType.EXPRESSION, ""},
+		Timeout = {AttributeType.NUMBER, 1},
+		FailedVariable = {AttributeType.STATE_VALUE, ""},
+	},
 	NetworkRouter = {
+		NetworkId = {AttributeType.NETWORK_ID, 999},
+		NetworkLink = {AttributeType.NETWORK_ID_STRING, ""},
 	},
 	Notification = {
 		Condition = {AttributeType.EXPRESSION, ""},
@@ -2422,17 +3776,26 @@ return {
 		WaveResetTime = {AttributeType.EXPRESSION, ""},
 		WaveResetTimeDecrease = {AttributeType.NUMBER, 0},
 	},
+	ScriptedBotSpawn = {
+		TemplateId = {AttributeType.STRING, ""},
+		Condition = {AttributeType.EXPRESSION, ""},
+	},
 	SearchPatternCondition = {
 		Condition = {AttributeType.EXPRESSION, ""},
 		BotServerTag = {AttributeType.STRING, ""},
 	},
 	ServerChat = {
+		Active = {AttributeType.EXPRESSION, ""},
+		Dialogue = {AttributeType.STRING, ""},
+		Delay = {AttributeType.NUMBER, 0},
+		Chance = {AttributeType.NUMBER, 1},
+		TriggerOnce = {AttributeType.BOOL, false},
 	},
 	SniperSpawner = {
 		Active = {AttributeType.EXPRESSION, ""},
 		Nodes = {AttributeType.STRING, ""},
-		InitialSpawns = {AttributeType.EXPRESSION, 0},
-		RespawnRate = {AttributeType.EXPRESSION, 20},
+		InitialSpawns = {AttributeType.EXPRESSION, "0"},
+		RespawnRate = {AttributeType.EXPRESSION, "20"},
 	},
 	StateScript = {
 	},
@@ -2441,9 +3804,9 @@ return {
 	TimerComponent = {
 		SetVariable = {AttributeType.STATE_VALUE, ""},
 		SetFormattedVariable = {AttributeType.STATE_VALUE, ""},
-		StartValue = {AttributeType.EXPRESSION, 0},
-		TargetValue = {AttributeType.EXPRESSION, 60},
-		Increment = {AttributeType.EXPRESSION, 1},
+		StartValue = {AttributeType.EXPRESSION, "0"},
+		TargetValue = {AttributeType.EXPRESSION, "60"},
+		Increment = {AttributeType.EXPRESSION, "1"},
 		Offset = {AttributeType.EXPRESSION, ""},
 		Enabled = {AttributeType.EXPRESSION, ""},
 	},
@@ -2458,6 +3821,7 @@ return {
 		Active = {AttributeType.EXPRESSION, ""},
 	},
 	BlackoutScreen = {
+		Active = {AttributeType.EXPRESSION, ""},
 	},
 	FileUITrigger = {
 		Trigger = {AttributeType.EXPRESSION, ""},
@@ -2466,6 +3830,11 @@ return {
 	GameCredits = {
 	},
 	HackingNodeHighlight = {
+		HackDesc = {AttributeType.STRING, ""},
+		Active = {AttributeType.EXPRESSION, ""},
+		IncludeTraversal = {AttributeType.BOOL, false},
+		NodeId = {AttributeType.NETWORK_ID, 0},
+		ObjectiveType = {AttributeType.INT, 1},
 	},
 	LocalChat = {
 		DelayStart = {AttributeType.NUMBER, 0},
@@ -2477,525 +3846,247 @@ return {
 	LocalStateComponents = {
 	},
 	LocalWeaponTracker = {
+		TotalAmmoVariable = {AttributeType.STATE_VALUE, ""},
+		LoadedAmmoVariable = {AttributeType.STATE_VALUE, ""},
+		HoldingWeaponVariable = {AttributeType.STATE_VALUE, ""},
 	},
 	LocationCard = {
+		Subtitle = {AttributeType.STRING, ""},
+		Title = {AttributeType.STRING, ""},
+		Active = {AttributeType.EXPRESSION, ""},
 	},
 	MusicController = {
 		ActivePriority = {AttributeType.EXPRESSION, "1"},
-		TrackId = {AttributeType.EXPRESSION, 0},
+		TrackId = {AttributeType.EXPRESSION, "0"},
 		NoLoop = {AttributeType.BOOL, false},
 		Volume = {AttributeType.NUMBER, 0.5},
-		MusicType = {AttributeType.STRING, Stealth},
+		MusicType = {AttributeType.STRING, "Stealth"},
+		PersistOnReload = {AttributeType.BOOL, false},
 	},
 }]]></ProtectedString>
+						<string name="ScriptGuid">{30866FB6-26E1-42EB-A645-104FE99D34D2}</string>
+						<BinaryString name="AttributesSerialize"></BinaryString>
+						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
+						<bool name="DefinesCapabilities">false</bool>
+						<string name="Name">AttributesMap</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
 			</Item>
-		</Item>
-		<Item class="Folder" referent="RBXB99115D944B644FD8475402709979718">
-			<Properties>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-				<bool name="DefinesCapabilities">false</bool>
-				<string name="Name">OneClickTools</string>
-				<int64 name="SourceAssetId">-1</int64>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-			<Item class="ModuleScript" referent="RBXC872B88713E04B38A11068F2D6A79474">
+			<Item class="Folder" referent="RBX98052AA74C5043928CC31C083D9B7EAB">
 				<Properties>
 					<BinaryString name="AttributesSerialize"></BinaryString>
 					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 					<bool name="DefinesCapabilities">false</bool>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">Main</string>
-					<string name="ScriptGuid">{311C54E9-667F-47AD-8660-BEFB18238E0C}</string>
-					<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.ToolsCommon)
-local pluginSettingsKeys = require(script.Parent.Parent.Settings.SettingsKeys)
+					<string name="Name">SearchInfo</string>
+					<int64 name="SourceAssetId">-1</int64>
+					<BinaryString name="Tags"></BinaryString>
+				</Properties>
+				<Item class="ModuleScript" referent="RBX4C35FA8B13444F1CA5B91EC6B192603D">
+					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<ProtectedString name="Source"><![CDATA[local validator = require("./Validator")
 
-local oneClickMenuEnabled = common:GetPluginSetting(pluginSettingsKeys.ONE_CLICK_ENABLED)
-if oneClickMenuEnabled == nil then oneClickMenuEnabled = true end
+export type ClassSearchInfo = {
+	Name:				string,
+	FolderPath: 		{ { string } }|{string}|string,
+	FolderRelation:		"child"|"descendant",
+	ImportsGlobals:		boolean,
+	IsDefault: 			boolean,
+	IsAbstraction:		boolean,
 
-local oneClickMenuDisabled = not oneClickMenuEnabled
+	ValidClasses: 		{string},
 
-local toolsList = {
-	CellFixup = script.Parent.CellFixup.Main,
-	CustomPropBaseGen = script.Parent.CustomPropBaseGen.Main,
-	GenSlopePart = script.Parent.GenSlopePart.Main,
-	ReorganizeContents = script.Parent.ReorganizeContents.Main
+	TypeIsAttribute: 	string?,
+	TypeIsName: 		boolean?,
+	TypeIsParentName: 	boolean?,
+
+	AbstractionName:	string?,
+
+	SubTypes:			{ClassSearchInfo}?,
 }
 
-local subActions = {}
-for k, tool in pairs(toolsList) do
-	subActions[k] = require(tool)
-end
+local classSearchInfo: {ClassSearchInfo} = {
+	StateComponent = {
+		FolderPath 			= {
+			{ "StateComponents" },
+			{ "StateComponentTemplates" }
+		},
+		ValidClasses 		= {
+			"BoolValue"
+		},
 
-local oneClickMenu: PluginMenu? = nil
+		FolderRelation 		= "descendant",
+		ImportsGlobals 		= false,
+		TypeIsAttribute 	= "Type"
+	},
+	ConditionalGeometry = {
+		FolderPath 		= { "ConditionalGeometry" },
+		ValidClasses 	= { "Model", "Folder", "BasePart" },
 
-local function BuildMenu()
-	oneClickMenu = common:CreatePluginMenu("OneClickTools", "One-Click Tools", "rbxassetid://125187645185104", "rbxassetid://80115599628137")
-	
-	for toolName, toolModule in pairs(toolsList) do
-		print(`\tInitializing {toolName}...`)
+		FolderChild		= true
+	},
+	LoudSpawn = {
+		FolderPath 			= { "LoudSpawns" },
+		ValidClasses 		= { "BasePart" },
+
+		FolderRelation 		= "descendant",
+		TypeIsName 			= true,
+		ImportsGlobals 		= false
+	},
+	Prop = {
+		FolderPath 			= { "Props" },
+		ValidClasses 		= { "BasePart" },
+
+		FolderRelation = "descendant",
+		TypeIsName 			= true
+	},
+	Glass = {
+		FolderPath 			= { "Glass" },
+		ValidClasses 		= { "BasePart" },
+
+		FolderDescendant	= true
+	},
+	Link = {
+		FolderPath 		= { "Cells", "Links" },
+		ValidClasses 	= { "BasePart" },
+
+		FolderRelation 	= "child",
+		ImportsGlobals 	= false
+	},
+	Bot = { 
+		FolderPath 			= { "Bots" },
+		ValidClasses 		= { "BoolValue" },
+
+		FolderRelation 		= "descendant",
+		ImportsGlobals 		= false
+	},
+	CustomPropPart = {
+		FolderPath 			= { "CustomProps" },
+		ValidClasses 		= { "BasePart" },
+
+		FolderRelation 		= "descendant",
+		ImportsGlobals 		= false,
 		
-		local actionInfo = require(toolModule)
-		local toolAction = common:CreatePluginAction(`OCT_{actionInfo.ID}`, actionInfo.ID, actionInfo.Tooltip, actionInfo.IconAssetID, actionInfo.LightIconAssetID)
-		
-		toolAction.Triggered:Connect(actionInfo.ClickedCallback)
-		oneClickMenu:AddAction(toolAction)
-	end
-end
+		SubTypes = {
+			Motor = { 
+				TypeIsName		= true,
+				ImportsGlobals 	= false
+			},
+			Base = { 
+				ValidClasses = { "BasePart" },
 
-local function OpenWindow()
-	oneClickMenu:ShowAsync()
-end
+				ImportsGlobals = false, 
+				TypeIsParentName = true
+			}
+		}
+	},
+	CustomItem = {
+		FolderPath 		= { "CustomItems" },
+		ValidClasses 	= { "Model" },
 
-if not oneClickMenuDisabled then subActions = nil end
+		FolderRelation 	= "child",
+		ImportsGlobals	= false
+	},
+	CombatFlowNode = {
+		FolderPath			= { "CombatFlowMap" },
+		ValidClasses		= { "BasePart" },
 
-return {
-	SubActionsOnly = oneClickMenuDisabled,
-	SubActions = subActions,
-	
-	ID = "One-Click Tools",
-	Tooltip = "A collection of tools activated by a single click.\nExists to avoid cluttering your plugin bar :3",
-	IconAssetID = "rbxassetid://125187645185104",
-	LightIconAssetID = "rbxassetid://80115599628137",
-	
-	ClickedCallback = OpenWindow,
-	BuildMenu = BuildMenu
-}]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="Folder" referent="RBX26ABDF3719204CDFA88F98C731172295">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
-					<string name="Name">CellFixup</string>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-				<Item class="ModuleScript" referent="RBXF0AA1676267D42E2AD80FD204CBF5F1D">
-					<Properties>
+		FolderRelation 		= "descendant",
+		ImportsGlobals		= false
+	}
+}
+
+validator.DefineSeachInfoRecurse(classSearchInfo)
+
+return classSearchInfo]]></ProtectedString>
+						<string name="ScriptGuid">{4C85E6AD-FD9E-46C7-98FC-103FEBE1AF54}</string>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 						<bool name="DefinesCapabilities">false</bool>
-						<Content name="LinkedSource"><null></null></Content>
-						<string name="Name">Main</string>
-						<string name="ScriptGuid">{F691E76A-0216-4C85-BF84-519152CBD9F2}</string>
-						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
-
--- Hash politely borrowed from the official Cell tools
-local function hashName(name)
-	if name == "Default" then
-		return Color3.new(0, 0, 0)
-	end
-
-	local h = 5^7
-	local n = 0
-	for i = 1, #name do
-		n = (n * 257 + string.byte(name, i, i)) % h 
-	end
-	local color = Color3.fromHSV((n % 1000) / 1000, 0.5, 0.5)
-	return color
-end
-
-local function FixCell(cell, cellPart, cellCol)
-	cellPart.Color = cellCol
-	cellPart.CastShadow = false
-	cellPart.Material = Enum.Material.Plastic
-	cellPart.Transparency = 0.5
-	cellPart.TopSurface = Enum.SurfaceType.Studs
-	cellPart.BottomSurface = Enum.SurfaceType.Inlet
-
-	if cellPart.Shape ~= Enum.PartType.Block then warn(`Cell Part {cell.Name}.{cellPart.Name} is non-block shape {tostring(cellPart.Shape)}!`) end
-end
-
-local function LinkTexture(normal)
-	local tex = Instance.new("Texture")
-	tex.Texture = "rbxassetid://124542772943020"
-	tex.StudsPerTileU = 3
-	tex.StudsPerTileV = 1
-	tex.Face = normal
-	tex.Name = `Texture{normal.Name}`
-	return tex
-end
-
-local function FixLink(linkPart)
-	linkPart.Color = Color3.fromRGB(127, 63, 65)
-	linkPart.CastShadow = false
-	linkPart.Material = Enum.Material.Plastic
-	linkPart.Transparency = 0.5
-	linkPart.TopSurface = Enum.SurfaceType.Smooth
-	linkPart.BottomSurface = Enum.SurfaceType.Smooth
-
-	if linkPart:FindFirstChild("TextureFront") == nil then
-		local frontTex = LinkTexture(Enum.NormalId.Front)
-		frontTex.Parent = linkPart
-	end
-
-	if linkPart:FindFirstChild("TextureBack") == nil then
-		local backTex = LinkTexture(Enum.NormalId.Back)
-		backTex.Parent = linkPart
-	end
-
-	for k, v in next, linkPart:GetChildren() do
-		if typeof(v) ~= "Instance" then continue end
-		if v.Name == "TextureFront" then continue end
-		if v.Name == "TextureBack" then continue end
-		v:Destroy()
-	end
-end
-
-local function CellFixup()
-	local missionFolder = common:LevelFolder()
-	if missionFolder == nil then warn("Failed to find Custom Mission folder!") return end
-	
-	if missionFolder:FindFirstChild("Cells") == nil then warn("Custom Mission folder does not contain Cells folder!") return end
-	
-	local recording = common:RecordChanges("Cell Fixup")
-	if not recording then return end
-	
-	for _, cell in next, missionFolder.Cells:GetChildren() do
-		local cellColour = hashName(cell.Name)
-		if cell.Name == "Links" then
-			for _, linkPart in next, cell:GetChildren() do
-				if not linkPart:IsA("BasePart") then continue end
-				FixLink(linkPart)
-			end
-		else
-			for _, cellPart in next, cell:GetChildren() do
-				if not cellPart:IsA("BasePart") then continue end
-				FixCell(cell, cellPart, cellColour)
-			end
-		end
-	end
-	
-	common:CommitChanges(recording)
-end
-
-return {
-	ClickedCallback = CellFixup,
-	ID = "Cell Fixup",
-	Tooltip = "Fix cell styling",
-	IconAssetID = "rbxassetid://115706109343056",
-	LightIconAssetID = "rbxassetid://95343720267369"
-}]]></ProtectedString>
+						<string name="Name">Builtin</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-			</Item>
-			<Item class="Folder" referent="RBX8BAB2F0E42A74060A35B929429456EE8">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
-					<string name="Name">CustomPropBaseGen</string>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-				<Item class="ModuleScript" referent="RBXE2A26FF1E2A1408EBA7C3DE295BD9E37">
+				<Item class="ModuleScript" referent="RBXFD69BF317B11443F8606098D970486F5">
 					<Properties>
+						<Content name="LinkedSource"><null></null></Content>
+						<ProtectedString name="Source"><![CDATA[local glut = require("../GLUt")
+
+local Validator = {}
+
+function Validator.FullyDefineSearchEntry(entry, optName)
+	if type(optName) == "string" then entry.Name = optName end
+	entry.FolderRelation = glut.default_typed(entry.FolderRelation, "descendant")
+	entry.ImportsGlobals = glut.default_typed(entry.ImportsGlobals, true)
+	entry.TypeIsDefault = glut.default_typed(entry.TypeIsDefault, false)
+	entry.IsAbstraction = glut.default_typed(entry.IsAbstraction, false)
+	return entry
+end
+
+local function type_check(arg, expectedType)
+	return glut.type_check(arg, expectedType, nil, nil, glut.severity.SILENT)
+end
+
+local function table_type_check(tbl, ...)
+	local first = select(1, ...)
+	local n = select('#', ...)
+	local anyTableValid = false
+	for _, v in ipairs(first) do if v == "table" then anyTableValid = true break end end
+	for _, v in pairs(tbl) do
+		local vValid = false
+		local vType = type(v)
+		for _, validType in ipairs(first) do
+			vValid = vValid or (type(v) == validType)
+		end
+		if not anyTableValid and vType == "table" and n > 1 then
+			vValid = vValid or table_type_check(tbl, select(2, ...))
+		end
+		if not vValid then return false end
+	end
+	return true
+end
+
+function Validator.EntryIsValid(entry, optName)
+	entry = Validator.FullyDefineSearchEntry(entry, optName)
+	local invalid = false
+	if type(entry.FolderPath) == "table" then
+		invalid = not table_type_check(entry.FolderPath, {"string"}, {"string"})
+	elseif type(entry.FolderPath) ~= "string" then
+		invalid = true
+	end
+	invalid = invalid or not table_type_check(entry.ValidClasses, {"string"})
+	invalid = invalid or not type_check(entry.FolderRelation, "string?")
+	invalid = invalid or not type_check(entry.TypeIsAttribute, "string?")
+	invalid = invalid or not type_check(entry.TypeIsName, "boolean?")
+	invalid = invalid or not type_check(entry.TypeIsParentName, "boolean?")
+	if entry.IsAbstraction then
+		invalid = invalid or not type_check(entry.AbstractionName, "string")
+	end
+	invalid = invalid or not type_check(entry.SubTypes, "table?")
+	return not invalid
+end
+
+function Validator.DefineSeachInfoRecurse(searchInfoGroup)
+	for k, v in pairs(searchInfoGroup) do
+		Validator.FullyDefineSearchEntry(v, k)
+		if v.SubTypes == nil then continue end
+		Validator.DefineSeachInfoRecurse(v.SubTypes)
+	end
+end
+
+return Validator]]></ProtectedString>
+						<string name="ScriptGuid">{F748489C-77C5-4B06-8E58-48E0E5C6D4F4}</string>
 						<BinaryString name="AttributesSerialize"></BinaryString>
 						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
 						<bool name="DefinesCapabilities">false</bool>
-						<Content name="LinkedSource"><null></null></Content>
-						<string name="Name">Main</string>
-						<string name="ScriptGuid">{CAAC927D-AFB9-44EF-A1CF-2D4715B27B47}</string>
-						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
-
-local function BaseGen()
-	
-	local recording = common:RecordChanges("Generate Prop Base")
-	if not recording then return end
-	
-	for _, v in pairs(common:GetSelection()) do
-		if not v:IsA("Model") then warn(`Selection {v.Parent.Name}.{v.Name} is not a Model! Skipping`) continue end
-		
-		local basePart = common:FindFirstChildWithNameAndClass(v, "Base", "BasePart") 
-		
-		if basePart ~= nil then
-			-- Ignore existing Base when getting bounds
-			basePart.Parent = nil
-		end
-		
-		local transform, size = v:GetBoundingBox()
-		
-		basePart = basePart or Instance.new("Part")
-		basePart.Parent = v
-		basePart.Transparency = 1
-		basePart.CFrame = transform
-		basePart.Size = size
-		basePart.Name = "Base"
-		basePart.Anchored = true
-		
-		basePart.TopSurface = Enum.SurfaceType.Smooth
-		basePart.BottomSurface = Enum.SurfaceType.Smooth
-		
-	end
-	
-	common:CommitChanges(recording)
-	
-end
-
-return {
-	ClickedCallback = BaseGen,
-	ID = "Generate Prop Base",
-	Tooltip = "Generate the 'Base' part for the selected custom prop",
-	IconAssetID = "rbxassetid://73246176602542",
-	LightIconAssetID = "rbxassetid://101352653431755"
-}]]></ProtectedString>
+						<string name="Name">Validator</string>
 						<int64 name="SourceAssetId">-1</int64>
 						<BinaryString name="Tags"></BinaryString>
 					</Properties>
 				</Item>
-			</Item>
-			<Item class="Folder" referent="RBX0C9D7926899444EFB55C7398195159E5">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
-					<string name="Name">ReorganizeContents</string>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-				<Item class="ModuleScript" referent="RBX4B5177663028473BA52F155602DAA385">
-					<Properties>
-						<BinaryString name="AttributesSerialize"></BinaryString>
-						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-						<bool name="DefinesCapabilities">false</bool>
-						<Content name="LinkedSource"><null></null></Content>
-						<string name="Name">Main</string>
-						<string name="ScriptGuid">{E18944E5-E01A-4129-9F65-BB85E1F4FC50}</string>
-						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
-
-local function FakeChild(fakeParent, name)
-	local fake = fakeParent:FindFirstChild(name)
-	if fake ~= nil then return fake end
-	
-	fake = Instance.new("Folder")
-	fake.Parent = fakeParent
-	fake.Name = name
-	return fake
-end
-
-local function ReorganizeContents()
-	
-	local recording = common:RecordChanges("Generate Prop Base #1")
-	if not recording then return end
-	
-	local fakeParent = Instance.new("Part")
-	fakeParent.Parent = workspace
-	
-	for _, parent in ipairs(common:GetSelection()) do
-		local vChildren = parent:GetChildren()
-		table.sort(vChildren, function(c1, c2) return c1.Name:lower() < c2.Name:lower() end)
-		
-		for _, child in ipairs(vChildren) do
-			print(child.Name)
-			child.Parent = FakeChild(fakeParent, child.Name)
-		end
-		
-		for _, nameFolder in ipairs(fakeParent:GetChildren()) do
-			for _, child in ipairs(nameFolder:GetChildren()) do
-				local newChild = child:Clone()
-				newChild.Parent = parent
-			end
-		end
-		
-	end
-	
-	fakeParent:Destroy()
-	
-	common:CommitChanges(recording)
-	
-end
-
-return {
-	ClickedCallback = ReorganizeContents,
-	ID = "Child Organizer",
-	Tooltip = "For each selected instance, reorganizes it's children to be listed in alphabetical order",
-	IconAssetID = "rbxassetid://73267947291883",
-	LightIconAssetID = "rbxassetid://96120579208421"
-}]]></ProtectedString>
-						<int64 name="SourceAssetId">-1</int64>
-						<BinaryString name="Tags"></BinaryString>
-					</Properties>
-				</Item>
-			</Item>
-			<Item class="Folder" referent="RBXE0504E1F58DF40449CC54CC01E0543B1">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
-					<string name="Name">GenSlopePart</string>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-				<Item class="ModuleScript" referent="RBXBF5CEDCD331B4F0DBD1A82D6C15A214C">
-					<Properties>
-						<BinaryString name="AttributesSerialize"></BinaryString>
-						<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-						<bool name="DefinesCapabilities">false</bool>
-						<Content name="LinkedSource"><null></null></Content>
-						<string name="Name">Main</string>
-						<string name="ScriptGuid">{EF142B23-FAE6-4E74-AA7B-0F241E14C468}</string>
-						<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.Parent.ToolsCommon)
-
-local function InstanceIsWedge(instance: Instance)
-	return instance:IsA("WedgePart") or instance:IsA("Part") and instance.Shape == Enum.PartType.Wedge
-end
-
-local function GenSlopePart(wedge: BasePart)
-	
-	local slopePart = Instance.new("Part")
-	slopePart.Parent = wedge.Parent
-	slopePart.CFrame = wedge.CFrame
-	slopePart.Material = wedge.Material
-	slopePart.CanCollide = wedge.CanCollide
-	slopePart.CanQuery = wedge.CanQuery
-	slopePart.CanTouch = wedge.CanTouch
-	slopePart.CastShadow = wedge.CastShadow
-	slopePart.Color = wedge.Color
-	
-	-- For some forsaken reason, Instance.new("Part") generates a part with inlets/studs
-	slopePart.TopSurface = Enum.SurfaceType.Smooth
-	slopePart.BottomSurface = Enum.SurfaceType.Smooth
-	
-	slopePart.Size = Vector3.new( wedge.Size.X, 0.5, math.sqrt(wedge.Size.Y^2 + wedge.Size.Z^2) )
-	
-	slopePart.CFrame = slopePart.CFrame * CFrame.Angles(math.atan2(wedge.Size.Y, wedge.Size.Z), 0, 0):Inverse()
-	
-end
-
-local function GenSlopeParts()
-	
-	local recording = common:RecordChanges("Generate Slope Part(s)")
-	if not recording then return end
-	
-	for _, selected in ipairs(common:GetSelection()) do
-		if not InstanceIsWedge(selected) then warn(`Selection {selected.Name} isn't a Wedge! Skipping`) continue end
-		GenSlopePart(selected)
-	end
-	
-	common:CommitChanges(recording)
-	
-end
-
-return {
-	ClickedCallback = GenSlopeParts,
-	ID = "Generate Slope Part",
-	Tooltip = "For each selected wedge, generates a part at the center of it's slope facing the normal vector of the slope.",
-	IconAssetID = "rbxassetid://73761969919675",
-	LightIconAssetID = "rbxassetid://80151075507740"
-}]]></ProtectedString>
-						<int64 name="SourceAssetId">-1</int64>
-						<BinaryString name="Tags"></BinaryString>
-					</Properties>
-				</Item>
-			</Item>
-		</Item>
-		<Item class="Folder" referent="RBX747DC9C26D4448A79E9F82AC93BDBCE1">
-			<Properties>
-				<BinaryString name="AttributesSerialize"></BinaryString>
-				<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-				<bool name="DefinesCapabilities">false</bool>
-				<string name="Name">Settings</string>
-				<int64 name="SourceAssetId">-1</int64>
-				<BinaryString name="Tags"></BinaryString>
-			</Properties>
-			<Item class="ModuleScript" referent="RBXAC21D02CB1454057A1EEAB0BDBAE3635">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">Main</string>
-					<string name="ScriptGuid">{35A50E7E-2F47-4C7C-868B-9332127FA6DE}</string>
-					<ProtectedString name="Source"><![CDATA[local common = require(script.Parent.Parent.ToolsCommon)
-
-local settingsKeys = require(script.Parent.SettingsKeys)
-
-local settingsMenu: PluginMenu = nil
-local oneClickEnableAction: PluginAction = nil
-local oneClickDisableAction: PluginAction = nil
-
-local function UpdateMenu()
-	settingsMenu:Clear()
-	if common:GetPluginSetting(settingsKeys.ONE_CLICK_ENABLED) ~= false then
-		settingsMenu:AddAction(oneClickDisableAction)
-	else
-		settingsMenu:AddAction(oneClickEnableAction)
-	end
-end
-
-local function ToggleOneClickEnabled()
-	local currentState = common:GetPluginSetting(settingsKeys.ONE_CLICK_ENABLED)
-	if currentState == nil then currentState = true end
-	common:SetPluginSetting( settingsKeys.ONE_CLICK_ENABLED, not currentState )
-	UpdateMenu()
-	warn("Restart to apply setting (trust me I tried getting this to work without a restart)")
-end
-
-local function BuildMenu()
-	oneClickEnableAction = common:CreatePluginAction(
-		"OneClickEnable",
-		"Enable One-Click Menu",
-		"Toggles usage of the one-click menu for saving toolbar space.",
-		"rbxassetid://125187645185104",
-		"rbxassetid://80115599628137",
-		false
-	)
-	oneClickEnableAction.Triggered:Connect(ToggleOneClickEnabled)
-	
-	oneClickDisableAction = common:CreatePluginAction(
-		"OneClickDisable",
-		"Disable One-Click Menu",
-		"Toggles usage of the one-click menu for saving toolbar space.",
-		"rbxassetid://125187645185104",
-		"rbxassetid://80115599628137",
-		false
-	)
-	oneClickDisableAction.Triggered:Connect(ToggleOneClickEnabled)
-	
-	settingsMenu = common:CreatePluginMenu("Settings", "Settings", "rbxassetid://87024861341187", "rbxassetid://127048252171392")
-	UpdateMenu()
-end
-
-local function OpenWindow()
-	settingsMenu:ShowAsync()
-end
-
-return {
-	ID = "Settings",
-	Tooltip = "Settings for SpongeAugments",
-	IconAssetID = "rbxassetid://87024861341187",
-	LightIconAssetID = "rbxassetid://127048252171392",
-	ClickedCallback = OpenWindow,
-	BuildMenu = BuildMenu
-}]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
-			</Item>
-			<Item class="ModuleScript" referent="RBX233ABC265A9841FBBE98FABFB6909480">
-				<Properties>
-					<BinaryString name="AttributesSerialize"></BinaryString>
-					<SecurityCapabilities name="Capabilities">0</SecurityCapabilities>
-					<bool name="DefinesCapabilities">false</bool>
-					<Content name="LinkedSource"><null></null></Content>
-					<string name="Name">SettingsKeys</string>
-					<string name="ScriptGuid">{4948C85F-7E17-4FC5-9058-4D864150BA5C}</string>
-					<ProtectedString name="Source"><![CDATA[return {
-	ONE_CLICK_ENABLED = "OneClickEnabled"
-}]]></ProtectedString>
-					<int64 name="SourceAssetId">-1</int64>
-					<BinaryString name="Tags"></BinaryString>
-				</Properties>
 			</Item>
 		</Item>
 	</Item>
